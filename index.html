@@ -1,0 +1,883 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste sua Resiliência - ImpulsoCoaching</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1b5e20, #388e3c);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #ffffff, #f5f5f5);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #7b1fa2;
+            font-size: 1.6em;
+            font-weight: 600;
+            margin: 20px 0 10px;
+        }
+        h3 {
+            color: #ff9800;
+            font-size: 1.3em;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            position: relative;
+            display: block;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            font-size: 1em;
+            background: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus {
+            border-color: #2e7d32;
+            background: #fff;
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.2);
+            outline: none;
+        }
+        .form-group input.error {
+            border-color: #e91e63;
+        }
+        .form-group label i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4caf50;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus + i {
+            color: #2e7d32;
+        }
+        .instructions {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 6px solid #2e7d32;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1em;
+            color: #1b5e20;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .instructions i {
+            color: #2e7d32;
+            font-size: 1.8em;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 20px 0;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+        th {
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-radius: 8px 8px 0 0;
+        }
+        td.number {
+            background: #2e7d32;
+            color: white;
+            font-weight: 500;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        td.question {
+            background: #2e7d32;
+            color: white;
+            font-weight: 500;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        td.response-cell {
+            background: #2e7d32;
+            color: white;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        tr:hover td.number, tr:hover td.question, tr:hover td.response-cell {
+            background: #1b5e20;
+        }
+        tr:hover td {
+            background: #e8f5e9;
+        }
+        tr.highlighted td {
+            background: #c8e6c9 !important;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 0px;
+            border: 2px solid #4caf50;
+            background: #e8f5e9;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: #333;
+        }
+        select:focus {
+            border-color: #2e7d32;
+            background: #fff;
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.2);
+            outline: none;
+        }
+        select:disabled {
+            background: #e0e0e0;
+            border-color: #bdbdbd;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        #resultsSection, #explanationSection {
+            display: none;
+        }
+        .footer {
+            font-size: 0.9em;
+            color: #1b5e20;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .signature {
+            font-size: 0.7em;
+            color: #546e7a;
+        }
+        #submitBtn {
+            background: linear-gradient(45deg, #2e7d32, #4caf50);
+            color: white;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+        #submitBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+            background: linear-gradient(45deg, #1b5e20, #388e3c);
+        }
+        #submitBtn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+        #submitBtn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+        #result {
+            font-size: 1.3em;
+            font-weight: 600;
+            text-align: center;
+            color: #2e7d32;
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        #chartContainer {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background: #2e7d32;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+            table {
+                font-size: 0.9em;
+            }
+            th, td {
+                padding: 8px;
+            }
+            #submitBtn {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h1>Teste sua Resiliência - ImpulsoCoaching</h1>
+            <h2>Palestras | Treinamentos | Mindset</h2>
+            <p style="text-align: center; color: #2e7d32; font-style: italic;">A mudança pode acontecer em um instante...</p>
+
+            <div class="form-group">
+                <label>
+                    <input type="text" id="name" placeholder="Nome" required>
+                    <i class="fas fa-user"></i>
+                </label>
+                <label>
+                    <input type="text" id="occupation" placeholder="Profissão" required>
+                    <i class="fas fa-briefcase"></i>
+                </label>
+                <label>
+                    <input type="email" id="email" placeholder="E-mail" required>
+                    <i class="fas fa-envelope"></i>
+                </label>
+            </div>
+
+            <div class="instructions">
+                <i class="fas fa-info-circle"></i>
+                <p><strong>Instruções:</strong> Selecione sua resposta na coluna indicada para cada pergunta. Escolha entre <strong>Sempre</strong>, <strong>Frequentemente</strong>, <strong>Às vezes</strong> ou <strong>Muito raramente</strong>.</p>
+            </div>
+
+            <table id="resiliencia">
+                <tr>
+                    <td class="number">1</td>
+                    <td class="question">Numa situação de estresse, lidando com calma para resolver o problema?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">2</td>
+                    <td class="question">Costuma desprezar ou desvalorizar as pessoas que não são importantes para você?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">3</td>
+                    <td class="question">Procura harmonizar-se com as pessoas ao seu redor?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">4</td>
+                    <td class="question">Valoriza datas comemorativas como aniversários, Natal, etc.?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">5</td>
+                    <td class="question">Analisa cuidadosamente as situações antes de tomar decisões?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">6</td>
+                    <td class="question">É extremamente crítico quando as coisas não saem como deseja?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">7</td>
+                    <td class="question">Numa festa onde conhece poucas pessoas, você tende a se retrair?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">8</td>
+                    <td class="question">Costuma adiar decisões relacionadas a problemas desagradáveis?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">9</td>
+                    <td class="question">Valoriza o senso de responsabilidade?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">10</td>
+                    <td class="question">Conversa com as pessoas mantendo contato visual?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">11</td>
+                    <td class="question">Costuma se lamentar quando não alcança seus objetivos?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">12</td>
+                    <td class="question">Costuma observar as reações das outras pessoas?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">13</td>
+                    <td class="question">Você é questionador?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">14</td>
+                    <td class="question">Busca sempre a perfeição nas suas tarefas?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">15</td>
+                    <td class="question">Julga corretamente pessoas e situações?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">16</td>
+                    <td class="question">É extremamente rigoroso com os fracassos alheios?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">17</td>
+                    <td class="question">Consegue expressar claramente o que pensa?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">18</td>
+                    <td class="question">Frequentemente encontra boas justificativas para suas ações?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">19</td>
+                    <td class="question">Costuma dizer frases como: “Você deve fazer isso.”?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">20</td>
+                    <td class="question">Segue rigorosamente as regras e regulamentos?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">21</td>
+                    <td class="question">Sabe lidar bem com as pessoas ao seu redor?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">22</td>
+                    <td class="question">Esforça-se para agradar os outros?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">23</td>
+                    <td class="question">Reúne e analisa informações antes de tomar decisões?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">24</td>
+                    <td class="question">Costuma dizer: “Desculpe-me” ou “Sinto muito”? </td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C"></select></td>
+                </tr>
+                <tr>
+                    <td class="number">25</td>
+                    <td class="question">Em situações de conflito, questiona antes de julgar?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">26</td>
+                    <td class="question">Busca agir em prol de um ideal?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">27</td>
+                    <td class="question">Planeja cuidadosamente antes de agir?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">28</td>
+                    <td class="question">Permanece emocionalmente neutro em conversas tristes?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">29</td>
+                    <td class="question">Expressa suas opiniões com firmeza?</td>
+                    <td class="response-cell"><select class="response" data-column="A"></select></td>
+                    <td class="response-cell"><select class="response" data-column="B" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number">30</td>
+                    <td class="question">Interage com facilidade com outras pessoas?</td>
+                    <td class="response-cell"><select class="response" data-column="A" disabled></select></td>
+                    <td class="response-cell"><select class="response" data-column="B"></select></td>
+                    <td class="response-cell"><select class="response" data-column="C" disabled></select></td>
+                </tr>
+                <tr>
+                    <td class="number" colspan="2"><strong>Total de Pontos</strong></td>
+                    <td class="response-cell"><strong id="totalA">0</strong></td>
+                    <td class="response-cell"><strong id="totalB">0</strong></td>
+                    <td class="response-cell"><strong id="totalC">0</strong></td>
+                </tr>
+            </table>
+
+            <button id="submitBtn">Enviar</button>
+
+            <div id="resultsSection">
+                <div id="result"></div>
+                <div id="chartContainer">
+                    <canvas id="resultChart"></canvas>
+                </div>
+            </div>
+
+            <div id="explanationSection" class="section">
+                <h2>Como você reage perante as dificuldades:</h2>
+                <h3>Submissos</h3>
+                <p>São aqueles que se conformam passivamente com as adversidades da vida e renunciam ao sucesso. Acomodam-se, como se sofressem de uma espécie de “síndrome de Gabriela”, “ dizendo: “Eu nasci assim, cresci assim, sou mesmo assim, vou ser sempre assim. Gabriela...” Alguns atribuem ao destino, à vontade de Deus ou ao seu “carma” a responsabilidade pelo que vivem, cruzando os braços, como se nada pudesse ser feito. Aceitar as adversidades como parte natural da vida é válido, mas “aceitação” é diferente de “submissão”. Submeter-se é evitar enfrentar os desafios. A principal atitude dos submissos é lamentar-se.</p>
+
+                <h3>Reativos</h3>
+                <p>Estes não aceitam as adversidades e se revoltam contra elas. Em vez de assumir a responsabilidade por resolver seus problemas, sempre encontram alguém para culpar. Assim, estão constantemente reclamando do chefe, dos subordinados, dos colegas ou da meta da empresa. Não importa se o problema é exclusivamente deles; eles insistem em negá-lo ou transferi-lo para outros.</p>
+
+                <p><strong>Obs.:</strong> Os comportamentos descritos até agora têm um aspecto de manipulação, consciente ou inconsciente. A pessoa submissa, ao se vitimizar, tenta mobilizar outros para resolver seus problemas ou perdoar sua incapacidade. Já a pessoa reativa, ao culpar alguém por suas dificuldades, busca transferir a responsabilidade de resolvê-los.</p>
+
+                <h3>Proativos</h3>
+                <p>Em vez de se curvar diante dos problemas, enfrentam as situações com determinação. Assumem suas responsabilidades e investem energia na resolução dos desafios. Com essas atitudes, transformam dificuldades em oportunidades de aprendizado, desenvolvendo-se e fortalecendo-se.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Instituto ImpulsoCoaching – <a href="http://www.impulsocoaching.com.br" style="color: #2e7d32; text-decoration: none;">www.impulsocoaching.com.br</a></p>
+            <p class="signature">Rogério Braga</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Populate dropdowns
+        const responses = [
+            { value: "", text: "Selecione" },
+            { value: "3", text: "Sempre" },
+            { value: "2", text: "Frequentemente" },
+            { value: "1", text: "Às vezes" },
+            { value: "0", text: "Muito raramente" }
+        ];
+
+        document.querySelectorAll('.response').forEach(select => {
+            if (!select.disabled) {
+                responses.forEach(response => {
+                    const option = document.createElement('option');
+                    option.value = response.value;
+                    option.text = response.text;
+                    select.appendChild(option);
+                });
+            }
+        });
+
+        // Real-time form validation
+        const inputs = ['name', 'occupation', 'email'];
+        inputs.forEach(id => {
+            const input = document.getElementById(id);
+            input.addEventListener('input', () => {
+                if (id === 'email' && input.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+                    input.classList.add('error');
+                    input.title = 'Por favor, insira um e-mail válido.';
+                } else if (!input.value) {
+                    input.classList.add('error');
+                    input.title = 'Este campo é obrigatório.';
+                } else {
+                    input.classList.remove('error');
+                    input.title = '';
+                }
+            });
+        });
+
+        // Highlight row when a response is selected
+        function updateRowHighlight(select) {
+            const row = select.closest('tr');
+            const hasResponse = Array.from(row.querySelectorAll('.response:not(:disabled)'))
+                .some(sel => sel.value !== '');
+            if (hasResponse) {
+                row.classList.add('highlighted');
+            } else {
+                row.classList.remove('highlighted');
+            }
+        }
+
+        // Initialize highlight state and add event listeners
+        document.querySelectorAll('.response:not(:disabled)').forEach(select => {
+            updateRowHighlight(select);
+            select.addEventListener('change', () => updateRowHighlight(select));
+        });
+
+        // Sanitize input for PDF
+        function sanitizeInput(input) {
+            return input.replace(/[<>&'"]/g, char => ({
+                '<': '&lt;',
+                '>': '&gt;',
+                '&': '&amp;',
+                "'": '&apos;',
+                '"': '&quot;'
+            }[char]));
+        }
+
+        // Function to generate PDF
+        function generatePDF(data, totalA, totalB, totalC, resultText, explanationText) {
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({ format: 'a4' });
+                doc.setFillColor(229, 231, 235);
+                doc.rect(0, 0, 210, 297, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(20);
+                doc.setTextColor(59, 130, 246);
+                doc.text('ImpulsoCoaching', 20, 10);
+                doc.text('Autodiagnóstico: Resiliência', 20, 16);
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(10);
+                doc.setTextColor(0);
+                doc.text(`Nome: ${sanitizeInput(data.name)}`, 20, 26);
+                doc.text(`Profissão: ${sanitizeInput(data.occupation)}`, 20, 32);
+                doc.text(`E-mail: ${sanitizeInput(data.email)}`, 20, 38);
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(14);
+                const maxScore = Math.max(totalA, totalB, totalC);
+                const scoreColor = totalA === maxScore ? '#e91e63' : totalB === maxScore ? '#4caf50' : '#ff9800';
+                doc.setTextColor(...(scoreColor === '#e91e63' ? [233, 30, 99] :
+                                 scoreColor === '#4caf50' ? [76, 175, 80] :
+                                 [255, 152, 0]));
+                doc.text(`Resultado: ${resultText.replace(/<.*?>/g, '')}`, 20, 46);
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(10);
+                doc.setTextColor(50, 65, 81);
+                doc.text('Pontuação:', 20, 54);
+                doc.text(`Reativa (A): ${totalA} pontos`, 50, 60);
+                doc.text(`Proativa (B): ${totalB} pontos`, 50, 66);
+                doc.text(`Submissa (C): ${totalC} pontos`, 50, 72);
+                doc.text('Explicação:', 20, 80);
+                const explanationLines = doc.splitTextToSize(explanationText.replace(/<.*?>/g, ''), 170);
+                doc.text(explanationLines, 20, 86);
+                const explanationHeight = explanationLines.length * 5;
+                doc.setFontSize(14);
+                doc.text('Gráfico:', 20, 86 + explanationHeight + 10);
+                const chartCanvas = document.getElementById('resultChart');
+                const chartImage = chartCanvas.toDataURL('image/png');
+                doc.addImage(chartImage, 'PNG', 45, 86 + explanationHeight + 15, 120, 60);
+                doc.setFontSize(10);
+                doc.setTextColor(55, 65, 81);
+                doc.text('Fonte: Instituto Impulso Coaching – www.impulsocoaching.com.br', 105, 86 + explanationHeight + 136, { align: 'center' });
+                doc.text('Rogério Augusto Braga', 105, 86 + explanationHeight + 142, { align: 'center' });
+                doc.save(`Autodiagnostico_Resiliencia_Resultado_${sanitizeInput(data.name).replace(/\s+/g, '_')}.pdf`);
+                console.log('PDF gerado e salvo automaticamente');
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                alert('Erro ao gerar o PDF. Tente novamente.');
+            }
+        }
+
+        // Create chart function
+        function createChart(canvasId, totalA, totalB, totalC, data, resultText, explanationText) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            return new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Reativa (A)', 'Proativa (B)', 'Submissa (C)'],
+                    datasets: [{
+                        label: 'Pontuação',
+                        data: [totalA, totalB, totalC],
+                        backgroundColor: ['#e91e63', '#4caf50', '#ff9800'],
+                        borderColor: ['#c2185b', '#388e3c', '#f57c00'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 30,
+                            title: {
+                                display: true,
+                                text: 'Pontuação',
+                                color: '#2e7d32',
+                                font: { size: 14, weight: '500' }
+                            },
+                            ticks: { color: '#2e7d32' }
+                        },
+                        y: {
+                            ticks: { color: '#2e7d32', font: { size: 12 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw} pontos`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutElastic',
+                        onComplete: () => {
+                            if (canvasId === 'resultChart') {
+                                setTimeout(() => {
+                                    generatePDF(data, totalA, totalB, totalC, resultText, explanationText);
+                                }, 500);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Submit button handler
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            // Validate form fields
+            const name = document.getElementById('name').value.trim();
+            const occupation = document.getElementById('occupation').value.trim();
+            const email = document.getElementById('email').value.trim();
+            if (!name || !occupation || !email) {
+                alert('Por favor, preencha todos os campos: Nome, Profissão e E-mail.');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Por favor, insira um e-mail válido.');
+                return;
+            }
+
+            let totalA = 0, totalB = 0, totalC = 0;
+            let unanswered = [];
+
+            document.querySelectorAll('.response:not(:disabled)').forEach((select, index) => {
+                const value = parseInt(select.value) || 0;
+                if (!select.value) {
+                    unanswered.push(index + 1);
+                }
+                const column = select.getAttribute('data-column');
+                if (column === 'A') totalA += value;
+                else if (column === 'B') totalB += value;
+                else if (column === 'C') totalC += value;
+            });
+
+            if (unanswered.length > 0) {
+                alert(`Por favor, responda as questões ${unanswered.join(', ')} antes de enviar.`);
+                return;
+            }
+
+            document.getElementById('totalA').textContent = totalA;
+            document.getElementById('totalB').textContent = totalB;
+            document.getElementById('totalC').textContent = totalC;
+
+            // Determine predominant behavior
+            let resultText = '';
+            const maxScore = Math.max(totalA, totalB, totalC);
+            if (maxScore === 0) {
+                resultText = 'Nenhuma pontuação registrada. Selecione valores diferentes de zero.';
+            } else if (totalA === maxScore && totalA === totalB && totalA === totalC) {
+                resultText = 'Empate entre os comportamentos Reativo, Proativo e Submissa.';
+            } else {
+                let behavior = '';
+                let color = '';
+                if (totalA === maxScore) {
+                    behavior = 'Reativo';
+                    color = '#e91e63';
+                } else if (totalB === maxScore) {
+                    behavior = 'Proativo';
+                    color = '#4caf50';
+                } else {
+                    behavior = 'Submissa';
+                    color = '#ff9800';
+                }
+                resultText = `Seu comportamento predominante é: <strong style="color: ${color};">${behavior}</strong> (${maxScore} pontos).`;
+            }
+            document.getElementById('result').innerHTML = resultText;
+
+            // Show results and explanation
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('explanationSection').style.display = 'block';
+
+            // Create chart
+            if (window.myChart) window.myChart.destroy();
+            const explanationText = document.getElementById('explanationSection').innerText;
+            window.myChart = createChart('resultChart', totalA, totalB, totalC, { name, occupation, email }, resultText, explanationText);
+        });
+    </script>
+</body>
+</html>
