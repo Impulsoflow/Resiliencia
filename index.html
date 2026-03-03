@@ -18,9 +18,9 @@
 
   <style>
     :root {
-      /* PALETA SUAVE E PROFISSIONAL */
-      --bg1: #f0f7f4; /* Fundo principal clarinho */
-      --bg2: #dcf0e2; /* Leve gradiente menta */
+      /* PALETA SUAVE E PROFISSIONAL (Verde Menta Corporativo) */
+      --bg1: #f0f7f4; 
+      --bg2: #dcf0e2; 
       --surface: #ffffff;
       --card: #ffffff;
 
@@ -39,10 +39,10 @@
       --radius: 16px;
       --radius2: 12px;
       
-      /* CORES DOS PERFIS SOLICITADAS */
-      --color-proativo: #3b82f6; /* Azul */
-      --color-reativo: #ef4444;  /* Vermelho */
-      --color-submisso: #f59e0b; /* Amarelo */
+      /* CORES DOS PERFIS (Conforme Imagem Enviada) */
+      --color-proativo: #1d4ed8; /* Azul Profundo */
+      --color-reativo: #ef4444;  /* Vermelho Vibrante */
+      --color-submisso: #eab308; /* Amarelo Intenso */
     }
 
     *{ box-sizing:border-box; }
@@ -331,7 +331,7 @@
       font-weight: 800;
     }
 
-    /* Gráfico Circular */
+    /* Gráfico Circular (Pizza Sólida) */
     .chart-card{
       background:#fff;
       border:1px solid var(--border);
@@ -339,7 +339,7 @@
       padding:24px;
       box-shadow:var(--shadow2);
       margin: 0 auto;
-      max-width: 480px; /* Reduzido para ficar elegante o gráfico circular */
+      max-width: 450px; 
       width: 100%;
     }
     .chart-card canvas{
@@ -363,6 +363,8 @@
     }
     .result-box p{ margin:0 0 10px 0; color:#334155; font-size:14px; line-height: 1.6; }
     .result-box p:last-child { margin-bottom: 0; }
+    .result-box ul { margin: 0; padding-left: 20px; font-size:14px; color:#334155; }
+    .result-box li { margin-bottom: 4px; }
 
     .footer{
       margin-top:30px;
@@ -455,7 +457,7 @@
           <p id="auto-send-status" class="text-sm font-bold mt-2" style="color: #2e7d32; text-align: center;"></p>
           
           <div id="final-success-message" class="hidden" style="margin-top:14px; background:#f0fdf4; border:1px solid #bbf7d0; padding:16px; border-radius:12px; text-align:center;">
-              <p style="margin:0; font-size:18px; font-weight:800; color:#166534;">✅ Resultados processados!</p>
+              <p style="margin:0; font-size:18px; font-weight:800; color:#166534;">✅ Resultados processados e salvos!</p>
               <p style="margin:6px 0 0; font-size:14px; color:#15803d;">Seu relatório completo foi gerado e enviado para seu e-mail.</p>
           </div>
         </div>
@@ -468,35 +470,41 @@
              <div class="highlight" id="profile-highlight">...</div>
           </div>
 
-          <!-- Gráfico Doughnut (Estilo Tríade) -->
+          <!-- Gráfico Pie (Pizza Sólida - Padrão Imagem) -->
           <div class="chart-card">
             <canvas id="resultChart"></canvas>
           </div>
 
           <div style="margin-top: 10px;">
-            <h2 style="color: #1e293b; font-size: 20px; font-weight: 800; margin-bottom: 16px; text-align: center;">Como você reage perante as dificuldades:</h2>
+            <h2 style="color: #1e293b; font-size: 20px; font-weight: 800; margin-bottom: 16px; text-align: center;">Análise Profunda dos Perfis:</h2>
             
             <div class="result-box" style="border-left: 6px solid var(--color-proativo);">
-              <h3 style="color: var(--color-proativo);">Proativos (Azul)</h3>
-              <p>Em vez de se curvar diante dos problemas, enfrentam as situações com determinação. Assumem suas responsabilidades e investem energia na resolução dos desafios.</p>
-              <p>Com essas atitudes, transformam dificuldades em oportunidades de aprendizado, desenvolvendo-se e fortalecendo-se a cada obstáculo superado.</p>
+              <h3 style="color: var(--color-proativo);">Perfil Proativo (Azul)</h3>
+              <p>Indivíduos com predominância proativa assumem o controle de suas vidas e de suas reações diante das adversidades. Entendem que, embora não possam controlar todos os eventos externos, possuem domínio sobre como responderão a eles.</p>
+              <ul>
+                <li><strong>Pontos Fortes:</strong> Foco na solução, responsabilidade pessoal, iniciativa, flexibilidade emocional e facilidade em transformar crises em oportunidades. Liderança natural.</li>
+                <li><strong>Ponto de Atenção:</strong> Podem se sobrecarregar ao tentar resolver tudo sozinhos. Precisam lembrar da importância de delegar e pedir ajuda.</li>
+              </ul>
             </div>
 
             <div class="result-box" style="border-left: 6px solid var(--color-reativo);">
-              <h3 style="color: var(--color-reativo);">Reativos (Vermelho)</h3>
-              <p>Estes não aceitam as adversidades e se revoltam contra elas. Em vez de assumir a responsabilidade por resolver seus problemas, sempre encontram alguém para culpar. Assim, estão constantemente reclamando do chefe, dos subordinados, dos colegas ou da meta da empresa.</p>
-              <p>Não importa se o problema é exclusivamente deles; eles insistem em negá-lo ou transferi-lo para outros.</p>
+              <h3 style="color: var(--color-reativo);">Perfil Reativo (Vermelho)</h3>
+              <p>Pessoas com tendências reativas costumam responder aos estímulos externos de forma automática, movidas pela emoção imediata. Frequentemente encontram justificativas e culpados para seus problemas (chefe, metas, colegas).</p>
+              <ul>
+                <li><strong>Pontos Fortes:</strong> Forte senso de justiça, defesa de seus ideais e energia intensa que, se bem canalizada, pode impulsionar grandes realizações e quebras de paradigmas.</li>
+                <li><strong>Ponto de Atenção:</strong> Risco de desperdiçar energia reclamando ao invés de agir; deterioração de relacionamentos pela constante transferência de responsabilidades.</li>
+              </ul>
             </div>
 
             <div class="result-box" style="border-left: 6px solid var(--color-submisso);">
-              <h3 style="color: var(--color-submisso);">Submissos (Amarelo)</h3>
-              <p>São aqueles que se conformam passivamente com as adversidades da vida e renunciam ao sucesso. Acomodam-se, como se sofressem de uma espécie de “síndrome de Gabriela”, dizendo: “Eu nasci assim, cresci assim...”. Alguns atribuem ao destino, à vontade de Deus ou ao seu “carma” a responsabilidade pelo que vivem.</p>
-              <p>Aceitar as adversidades como parte natural da vida é válido, mas “aceitação” é diferente de “submissão”. Submeter-se é evitar enfrentar os desafios.</p>
+              <h3 style="color: var(--color-submisso);">Perfil Submisso (Amarelo)</h3>
+              <p>Caracterizado pela aceitação passiva das dificuldades. Diante de um obstáculo, a pessoa tende a recuar ou acomodar-se (Síndrome de Gabriela), acreditando que o destino ou fatores externos determinam sua realidade.</p>
+              <ul>
+                <li><strong>Pontos Fortes:</strong> Alta capacidade de suporte, resiliência pacífica em ambientes hostis, empatia aflorada e facilidade em evitar conflitos desnecessários.</li>
+                <li><strong>Ponto de Atenção:</strong> Renúncia ao próprio potencial de sucesso, estagnação profissional e vitimização inconsciente para mobilizar a ajuda alheia.</li>
+              </ul>
             </div>
             
-            <div class="instructions" style="background: #f8fafc; border-color: #e2e8f0; border-left-color: #94a3b8; margin-top: 0;">
-              <p><strong>Observação importante:</strong> Os comportamentos Submissos e Reativos têm um aspecto de manipulação, consciente ou inconsciente. A pessoa submissa, ao se vitimizar, tenta mobilizar outros para resolver seus problemas ou perdoar sua incapacidade. Já a pessoa reativa, ao culpar alguém por suas dificuldades, busca transferir a responsabilidade de resolvê-los.</p>
-            </div>
           </div>
         </div>
 
@@ -513,7 +521,7 @@
   // ========================================
   // ⚙️ CONFIGURAÇÃO DO GOOGLE APPS SCRIPT
   // ========================================
-  // COLE A MESMA URL DO SEU SCRIPT AQUI ABAIXO
+  // URL INSERIDA CONFORME SOLICITADO
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx7UAS-FOFL8_sBNZeEj_usKvWr150-TLL5e3QjnLK3oQpypGaVlChFv8HAkxz-RodH/exec"; 
   const API_KEY = "2026Impulso$";
   
@@ -598,7 +606,7 @@
   ];
 
   // ========================================
-  // 📄 GERAÇÃO DO PDF
+  // 📄 GERAÇÃO DO PDF (Com Textos Profissionais)
   // ========================================
   async function generatePdfDocAndFileName() {
     const data = window._resilienciaData;
@@ -641,20 +649,19 @@
     doc.text(`Reativo (Vermelho): ${data.totals.A} pontos (${data.pcts.A}%)`, 25, 93);
     doc.text(`Submisso (Amarelo): ${data.totals.C} pontos (${data.pcts.C}%)`, 25, 99);
     
-    // Gráfico Doughnut Centrado
+    // Gráfico Pie Centrado
     if (data.chartImg) {
       try {
-        // x=65 deixa o grafico de 80px perfeitamente centralizado na pagina (210/2)
         doc.addImage(data.chartImg, 'PNG', 65, 110, 80, 80);
       } catch(e) { console.log(e); }
     }
 
-    // Textos Explicativos
-    let y = 205;
+    // Textos Explicativos Detalhados e Profissionais
+    let y = 195;
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
+    doc.setFontSize(13);
     doc.setTextColor(27, 94, 32);
-    doc.text('Entenda o seu perfil perante as dificuldades:', 20, y);
+    doc.text('Análise Profunda do Perfil de Resiliência:', 20, y);
     y += 8;
 
     doc.setFont('helvetica', 'normal');
@@ -662,11 +669,20 @@
     doc.setTextColor(51, 65, 85);
     
     const explicacao = [
-      "PROATIVOS: Em vez de se curvar diante dos problemas, enfrentam as situações com determinação. Assumem suas responsabilidades e investem energia na resolução dos desafios transformando-os em aprendizado.",
+      "COMPORTAMENTO PROATIVO (AZUL)",
+      "Indivíduos com predominância proativa assumem o controle de suas vidas e reações diante das adversidades. Entendem que possuem domínio interno sobre as respostas aos eventos.",
+      "• Pontos Fortes: Foco na solução, responsabilidade, capacidade de transformar crises em oportunidades, liderança natural.",
+      "• Ponto de Atenção: Risco de sobrecarga ao tentar resolver tudo sozinho. Deve lembrar de delegar.",
       "",
-      "REATIVOS: Estes não aceitam as adversidades e se revoltam contra elas. Em vez de assumir a responsabilidade por resolver seus problemas, sempre encontram alguém para culpar (chefe, colegas, metas).",
+      "COMPORTAMENTO REATIVO (VERMELHO)",
+      "Pessoas com tendências reativas respondem aos estímulos de forma automática, movidas pela emoção imediata. Frequentemente buscam justificativas ou culpados externos.",
+      "• Pontos Fortes: Forte senso de justiça, energia intensa que pode impulsionar realizações se bem canalizada.",
+      "• Ponto de Atenção: Desperdício de energia em reclamações; risco de desgastar relacionamentos transferindo responsabilidades.",
       "",
-      "SUBMISSOS: São aqueles que se conformam passivamente com as adversidades da vida e renunciam ao sucesso. Acomodam-se. Atribuem ao destino ou a terceiros a responsabilidade pelo que vivem.",
+      "COMPORTAMENTO SUBMISSO (AMARELO)",
+      "Caracterizado pela aceitação passiva. A pessoa recua, acreditando que não possui recursos para alterar a situação, terceirizando o controle para fatores externos ou destino.",
+      "• Pontos Fortes: Alta capacidade de suporte e escuta, empatia, evita desgastes desnecessários em crises.",
+      "• Ponto de Atenção: Conformismo excessivo, estagnação e renúncia ao próprio potencial de sucesso."
     ].join("\n");
 
     const splitText = doc.splitTextToSize(explicacao, 170);
@@ -676,7 +692,7 @@
     doc.setFontSize(9);
     doc.setTextColor(100, 116, 139);
     doc.text('Fonte: Instituto Impulso Coaching – www.impulsocoaching.com.br', 105, 284, { align: 'center' });
-    doc.text('Rogério Braga', 105, 289, { align: 'center' });
+    doc.text('Rogério Braga - Master Coach', 105, 289, { align: 'center' });
     
     const safeName = sanitizeInput(data.prettyData.nome).replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_]/g, "");
     const pdfFileName = `Resiliencia_Impulso_${safeName}.pdf`;
@@ -891,39 +907,39 @@
       maxPct = pctA;
     } else if (totalB === maxScore) {
       behavior = 'Proativo';
-      colorHex = '#3b82f6'; // Azul
-      colorRgb = [59, 130, 246];
+      colorHex = '#1d4ed8'; // Azul Profundo
+      colorRgb = [29, 78, 216];
       maxPct = pctB;
     } else if (totalA === maxScore) {
       behavior = 'Reativo';
-      colorHex = '#ef4444'; // Vermelho
+      colorHex = '#ef4444'; // Vermelho Vibrante
       colorRgb = [239, 68, 68];
       maxPct = pctA;
     } else {
       behavior = 'Submisso';
-      colorHex = '#f59e0b'; // Amarelo
-      colorRgb = [245, 158, 11];
+      colorHex = '#eab308'; // Amarelo Intenso
+      colorRgb = [234, 179, 8];
       maxPct = pctC;
     }
 
     document.getElementById('profile-highlight').textContent = `${behavior} (${maxPct}%)`;
     document.getElementById('profile-highlight').style.color = colorHex;
 
-    // Criar Gráfico Circular (Doughnut) em HD
+    // Criar Gráfico PIE (Pizza sólida)
     if (window.myChart) window.myChart.destroy();
     const ctx = document.getElementById('resultChart').getContext('2d');
     
     Chart.register(ChartDataLabels);
     
     window.myChart = new Chart(ctx, {
-      type: 'doughnut',
+      type: 'pie', // GRÁFICO DE PIZZA SÓLIDO
       data: {
         labels: ['Proativo', 'Reativo', 'Submisso'],
         datasets: [{
           data: [pctB, pctA, pctC],
-          backgroundColor: ['#3b82f6', '#ef4444', '#f59e0b'],
+          backgroundColor: ['#1d4ed8', '#ef4444', '#eab308'], // Azul, Vermelho, Amarelo
           borderColor: ['#ffffff', '#ffffff', '#ffffff'],
-          borderWidth: 3,
+          borderWidth: 2,
           hoverOffset: 6
         }]
       },
@@ -931,7 +947,6 @@
         devicePixelRatio: 4, // 🚀 HD PARA O PDF
         responsive: true,
         maintainAspectRatio: false,
-        cutout: '55%', // Furo no meio (Estilo Tríade)
         plugins: {
           legend: { 
             position: 'bottom',
@@ -939,14 +954,14 @@
           },
           datalabels: {
             formatter: (value) => value > 0 ? value + '%' : '',
-            color: (context) => context.dataIndex === 2 ? '#fff' : '#fff', // Branco p/ todos
+            color: '#ffffff', // Texto Branco garantido para alto contraste
             font: { weight: 'bold', size: 16, family: 'Poppins' },
-            textShadowColor: 'rgba(0,0,0,0.4)',
+            textShadowColor: 'rgba(0,0,0,0.6)',
             textShadowBlur: 4
           }
         },
         layout: { padding: 10 },
-        animation: { duration: 0 } // Desativa animação para captura do PDF
+        animation: { duration: 0 } // Desativa animação para captura imediata do PDF
       }
     });
 
