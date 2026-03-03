@@ -5,41 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Teste sua Resiliência - ImpulsoCoaching</title>
 
+  <!-- Bibliotecas necessárias -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
 
+  <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      /* PALETA VERDE - IMPULSO COACHING */
-      --bg1: #1b5e20;
-      --bg2: #0d3b10;
-      --surface: #f4fbf5;
+      /* PALETA SUAVE E PROFISSIONAL */
+      --bg1: #f0f7f4; /* Fundo principal clarinho */
+      --bg2: #dcf0e2; /* Leve gradiente menta */
+      --surface: #ffffff;
       --card: #ffffff;
 
-      --text: #0f172a;
-      --muted: #475569;
+      --text: #334155;
+      --muted: #64748b;
 
-      --primary: #2e7d32;
+      /* Verdes de Destaque e Botões */
+      --primary: #2e7d32; 
       --primary2: #1b5e20;
       --accent: #4caf50;
 
-      --border: #c8e6c9;
-      --shadow: 0 14px 34px rgba(27, 94, 32, .18);
-      --shadow2: 0 8px 20px rgba(27, 94, 32, .12);
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px rgba(27, 94, 32, .06);
+      --shadow2: 0 4px 12px rgba(27, 94, 32, .04);
 
-      --radius: 18px;
-      --radius2: 14px;
+      --radius: 16px;
+      --radius2: 12px;
       
-      /* CORES DOS PERFIS */
-      --color-reativo: #e91e63;
-      --color-proativo: #4caf50;
-      --color-submisso: #ff9800;
+      /* CORES DOS PERFIS SOLICITADAS */
+      --color-proativo: #3b82f6; /* Azul */
+      --color-reativo: #ef4444;  /* Vermelho */
+      --color-submisso: #f59e0b; /* Amarelo */
     }
 
     *{ box-sizing:border-box; }
@@ -47,20 +50,17 @@
     body{
       margin:0;
       font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(76,175,80,.25), transparent 55%),
-        radial-gradient(900px 600px at 85% 15%, rgba(255,215,0,.15), transparent 60%),
-        linear-gradient(135deg, var(--bg1), var(--bg2));
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
       color:var(--text);
       line-height:1.6;
-      padding:18px;
+      padding:20px;
     }
 
     .container{
-      max-width:980px;
+      max-width:900px;
       margin:0 auto;
-      background:linear-gradient(180deg, rgba(244,251,245,.95), rgba(244,251,245,.92));
-      border:1px solid rgba(76,175,80,.35);
+      background: var(--card);
+      border: 1px solid rgba(46,125,50,.15);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
@@ -74,11 +74,11 @@
       background:linear-gradient(90deg, var(--accent), var(--primary));
     }
 
-    .wrap{ padding:26px; }
+    .wrap{ padding:30px; }
 
     .header{
       text-align:center;
-      padding:6px 0 16px;
+      padding:10px 0 20px;
       margin-bottom:10px;
     }
     .brand{
@@ -91,24 +91,18 @@
     }
     .tagline{
       margin:6px 0 0;
-      font-weight:700;
-      color:#1b5e20;
+      font-weight:600;
+      color: var(--muted);
       font-size:13px;
       letter-spacing:.02em;
       font-style: italic;
     }
     .title{
       margin:10px 0 0;
-      font-size:34px;
-      line-height:1.15;
+      font-size:32px;
+      line-height:1.2;
       color:#1b5e20;
-      font-weight:900;
-    }
-    .subtitle{
-      margin:10px auto 0;
-      max-width:78ch;
-      color:var(--muted);
-      font-size:14px;
+      font-weight:800;
     }
 
     .card{
@@ -116,39 +110,39 @@
       border:1px solid var(--border);
       border-radius:var(--radius2);
       box-shadow:var(--shadow2);
-      padding:18px;
+      padding:20px;
     }
 
     .instructions{
-      background:linear-gradient(180deg, rgba(76,175,80,.10), rgba(76,175,80,.04));
-      border:1px solid rgba(76,175,80,.25);
-      border-left:6px solid var(--accent);
+      background:#f4fbf5;
+      border:1px solid rgba(76,175,80,.2);
+      border-left:5px solid var(--accent);
       border-radius:var(--radius2);
-      padding:16px;
-      margin:14px 0 18px;
+      padding:16px 20px;
+      margin:10px 0 24px;
       color:var(--text);
     }
     .instructions p{
-      margin:0 0 10px;
-      font-size:14px;
-      color:var(--text);
+      margin:0 0 8px;
+      font-size:14.5px;
+      color:#1e293b;
     }
     .instructions p:last-child{ margin-bottom:0; }
 
     .grid-2{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:14px;
+      gap:16px;
     }
-    @media (max-width: 820px){
-      .wrap{ padding:16px; }
-      .title{ font-size:28px; }
+    @media (max-width: 768px){
+      .wrap{ padding:20px; }
+      .title{ font-size:26px; }
       .grid-2{ grid-template-columns:1fr; }
     }
 
     .form-group label{
       display:block;
-      font-weight:800;
+      font-weight:700;
       color:#1b5e20;
       margin-bottom:8px;
       font-size:14px;
@@ -156,152 +150,146 @@
     .form-group input{
       width:100%;
       padding:14px;
-      border:1.5px solid rgba(46,125,50,.28);
-      border-radius:12px;
+      border:1.5px solid var(--border);
+      border-radius:10px;
       font-size:15px;
-      background:#fff;
+      background:#f8fafc;
       outline:none;
-      transition: box-shadow .2s ease, border-color .2s ease;
+      transition: all .2s ease;
+      color: #0f172a;
     }
     .form-group input:focus{
-      border-color:rgba(46,125,50,.55);
-      box-shadow:0 0 0 4px rgba(76,175,80,.22);
+      border-color:var(--accent);
+      background:#fff;
+      box-shadow:0 0 0 4px rgba(76,175,80,.15);
     }
     .error{
       display:none;
       margin-top:6px;
-      color:#b91c1c;
+      color:#ef4444;
       font-size:13px;
       font-weight:600;
     }
 
     .step{ display:none; }
-    .step.active{ display:block; }
+    .step.active{ display:block; animation: fadeIn 0.4s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .topbar{
       display:flex;
       flex-wrap:wrap;
-      gap:10px 12px;
+      gap:10px;
       align-items:center;
       justify-content:space-between;
       margin:10px 0 12px;
     }
-    .counter{
-      font-weight:800;
-      color:#1b5e20;
-      font-size:14px;
-    }
-    .progress-meta{
-      font-weight:700;
-      color:var(--muted);
-      font-size:13px;
-    }
+    .counter{ font-weight:800; color:#1b5e20; font-size:14px; }
+    .progress-meta{ font-weight:600; color:var(--muted); font-size:13px; }
 
     .progress-bar{
       width:100%;
-      background:#e8f5e9;
+      background:#e2e8f0;
       border-radius:999px;
       overflow:hidden;
-      height:12px;
-      border:1px solid rgba(46,125,50,.12);
+      height:10px;
     }
     .progress-fill{
       height:100%;
       width:0%;
       border-radius:999px;
       background:linear-gradient(90deg, var(--accent), var(--primary));
-      transition: width .35s ease-in-out;
+      transition: width .4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .question-title{
-      margin:0 0 10px;
+      margin:0 0 16px;
       font-size:18px;
       font-weight:600;
       color:#0f172a;
       text-align: center;
       padding: 10px 0;
+      line-height: 1.4;
     }
 
     .options{
       display:flex;
       flex-direction: column;
       gap:10px;
-      margin-top:12px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 480px;
+      margin: 0 auto;
     }
     .opt{
-      border:1.5px solid rgba(46,125,50,.22);
-      background:rgba(46,125,50,.04);
-      border-radius:12px;
-      padding:14px;
+      border:1.5px solid var(--border);
+      background:#f8fafc;
+      border-radius:10px;
+      padding:15px;
       cursor:pointer;
       user-select:none;
-      transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+      transition: all .2s ease;
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
       font-weight:600;
-      color:#1b5e20;
+      color:#334155;
       font-size:15px;
     }
     .opt:hover{
-      transform: translateY(-1px);
-      box-shadow:0 12px 18px rgba(27, 94, 32, .08);
-      border-color:rgba(76,175,80,.55);
+      transform: translateY(-2px);
+      border-color:var(--accent);
+      background:#f4fbf5;
     }
     .opt[aria-checked="true"]{
       background:linear-gradient(45deg, var(--primary), var(--primary2));
-      border-color:rgba(46,125,50,.55);
+      border-color:var(--primary);
       color:#fff;
-      box-shadow:0 14px 22px rgba(46,125,50,.22);
+      box-shadow:0 8px 16px rgba(46,125,50,.2);
     }
 
     .nav{
       display:flex;
       gap:10px;
       justify-content:space-between;
-      margin-top:20px;
+      margin-top:24px;
       flex-wrap:wrap;
     }
     .btn{
       appearance:none;
       border:none;
       cursor:pointer;
-      border-radius:14px;
-      padding:12px 20px;
-      font-size:14px;
-      font-weight:800;
-      transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+      border-radius:10px;
+      padding:14px 24px;
+      font-size:15px;
+      font-weight:700;
+      transition: all .2s ease;
       display:inline-flex;
       align-items:center;
-      gap:10px;
+      justify-content: center;
     }
     .btn-primary{
       background:linear-gradient(45deg, var(--primary), var(--primary2));
       color:#fff;
-      box-shadow:0 10px 18px rgba(46,125,50,.22);
+      box-shadow:0 6px 14px rgba(46,125,50,.2);
     }
     .btn-primary:hover{
-      transform: translateY(-1px);
-      filter:saturate(1.05);
-      box-shadow:0 14px 26px rgba(46,125,50,.30);
+      transform: translateY(-2px);
+      box-shadow:0 10px 20px rgba(46,125,50,.25);
     }
     .btn-ghost{
       background:#fff;
       color:#1b5e20;
-      border:1.5px solid rgba(46,125,50,.22);
-      box-shadow:0 8px 16px rgba(27, 94, 32, .08);
-      text-decoration:none;
+      border:1.5px solid rgba(46,125,50,.3);
     }
     .btn-ghost:hover{
-      transform: translateY(-1px);
-      border-color:rgba(76,175,80,.55);
+      background:#f4fbf5;
+      border-color:var(--primary);
     }
     .btn:disabled{
-      opacity:.55;
+      opacity:.5;
       cursor:not-allowed;
       transform:none !important;
       box-shadow:none !important;
@@ -309,82 +297,81 @@
 
     .result-hero{
       text-align:center;
-      margin-top:10px;
+      margin-bottom:20px;
     }
     .result-hero h2{
       margin:0;
-      font-size:20px;
-      font-weight:900;
+      font-size:24px;
+      font-weight:800;
       color:#1b5e20;
     }
 
     .result-grid{
       display:grid;
       grid-template-columns: 1fr;
-      gap:14px;
-      margin-top:14px;
+      gap:16px;
+    }
+
+    .profile-hero {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 24px;
+      text-align: center;
+      box-shadow: var(--shadow2);
+    }
+    .profile-hero h3 {
+      font-size: 18px;
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .profile-hero .highlight {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    /* Gráfico Circular */
+    .chart-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:var(--radius2);
+      padding:24px;
+      box-shadow:var(--shadow2);
+      margin: 0 auto;
+      max-width: 480px; /* Reduzido para ficar elegante o gráfico circular */
+      width: 100%;
+    }
+    .chart-card canvas{
+      width:100% !important;
+      height:auto !important;
+      max-height: 320px !important;
     }
 
     .result-box{
       background:#fff;
       border:1px solid var(--border);
-      border-left:6px solid var(--accent);
-      padding:16px;
+      padding:18px;
       border-radius:var(--radius2);
       box-shadow:var(--shadow2);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     .result-box h3{
-      margin:0 0 6px;
-      font-size:16px;
-      font-weight:900;
-      color:#1b5e20;
+      margin:0 0 8px;
+      font-size:18px;
+      font-weight:800;
     }
-    .result-box p{ margin:0 0 10px 0; color:var(--muted); font-size:13px; line-height: 1.6; }
+    .result-box p{ margin:0 0 10px 0; color:#334155; font-size:14px; line-height: 1.6; }
     .result-box p:last-child { margin-bottom: 0; }
 
-    .chart-card{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:var(--radius2);
-      padding:20px;
-      box-shadow:var(--shadow2);
-      margin: 0 auto;
-      max-width: 700px;
-    }
-
-    .chart-card canvas{
-      width:100% !important;
-      height:auto !important;
-      max-height:350px !important;
-    }
-
-    .profile-hero {
-      background: var(--surface);
-      border: 2px solid var(--border);
-      border-radius: var(--radius2);
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .profile-hero h3 {
-      font-size: 22px;
-      margin: 0 0 10px;
-      color: #1b5e20;
-    }
-    .profile-hero .highlight {
-      font-size: 26px;
-      font-weight: 900;
-    }
-
     .footer{
-      margin-top:20px;
+      margin-top:30px;
       text-align:center;
       color:var(--muted);
-      font-size:12px;
-      font-weight:700;
+      font-size:13px;
+      font-weight:500;
     }
-    .footer a { color: var(--primary); text-decoration: none; }
+    .footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
   </style>
 </head>
 
@@ -398,39 +385,37 @@
         <p class="tagline">A mudança pode acontecer em um instante...</p>
       </div>
 
-      <!-- STEP: INTRO -->
+      <!-- PASSO 1: DADOS -->
       <section id="step-intro" class="step active">
         <div class="instructions">
-          <p><strong>Instruções:</strong> Este teste avalia como você reage perante as dificuldades e adversidades. Selecione a resposta que melhor reflete seu comportamento atual para cada uma das 30 perguntas.</p>
-          <p>Preencha seus dados abaixo para iniciar e gerar seu relatório completo.</p>
+          <p><strong>Bem-vindo(a)!</strong> Este teste avalia como você reage perante as dificuldades e adversidades do dia a dia.</p>
+          <p>Selecione a resposta que melhor reflete seu comportamento atual. Seja sincero para um resultado preciso.</p>
         </div>
 
         <div class="card">
           <div class="grid-2">
             <div class="form-group">
-              <label for="name">Nome *</label>
-              <input type="text" id="name" autocomplete="name" placeholder="Seu nome completo" />
-              <p id="name-error" class="error">Por favor, preencha o nome.</p>
+              <label for="name">Nome completo *</label>
+              <input type="text" id="name" placeholder="Ex: João da Silva" />
+              <p id="name-error" class="error">Campo obrigatório.</p>
             </div>
-
             <div class="form-group">
               <label for="profession">Profissão *</label>
-              <input type="text" id="profession" autocomplete="organization-title" placeholder="Sua profissão" />
-              <p id="profession-error" class="error">Por favor, preencha a profissão.</p>
+              <input type="text" id="profession" placeholder="Sua profissão" />
+              <p id="profession-error" class="error">Campo obrigatório.</p>
             </div>
           </div>
 
-          <div class="grid-2" style="margin-top:14px;">
+          <div class="grid-2" style="margin-top:16px;">
             <div class="form-group">
               <label for="age">Idade *</label>
-              <input type="number" id="age" min="10" max="120" inputmode="numeric" placeholder="Sua idade" />
-              <p id="age-error" class="error">Por favor, informe uma idade válida.</p>
+              <input type="number" id="age" min="10" max="120" placeholder="Sua idade" />
+              <p id="age-error" class="error">Informe uma idade válida.</p>
             </div>
-
             <div class="form-group">
               <label for="email">E-mail *</label>
-              <input type="email" id="email" autocomplete="email" placeholder="seu@email.com" />
-              <p id="email-error" class="error">Por favor, preencha um e-mail válido.</p>
+              <input type="email" id="email" placeholder="seu@email.com" />
+              <p id="email-error" class="error">E-mail inválido.</p>
             </div>
           </div>
 
@@ -440,18 +425,18 @@
         </div>
       </section>
 
-      <!-- STEP: QUIZ -->
+      <!-- PASSO 2: PERGUNTAS -->
       <section id="step-quiz" class="step">
         <div class="topbar">
           <div class="counter">Pergunta <span id="q-current">1</span> de 30</div>
-          <div class="progress-meta"><span id="answered-count">0</span>/30 respondidas</div>
+          <div class="progress-meta"><span id="answered-count">0</span> respondidas</div>
         </div>
 
-        <div class="progress-bar" aria-label="Progresso de respostas">
+        <div class="progress-bar">
           <div id="progress-fill" class="progress-fill"></div>
         </div>
 
-        <div class="card" style="margin-top:12px;">
+        <div class="card" style="margin-top:16px;">
           <p id="question-text" class="question-title"></p>
           <div id="options" class="options" role="radiogroup"></div>
 
@@ -462,53 +447,54 @@
         </div>
       </section>
 
-      <!-- STEP: RESULTS -->
+      <!-- PASSO 3: RESULTADOS -->
       <section id="step-results" class="step">
         <div class="result-hero">
           <h2 id="result-title">Resultado da sua Avaliação</h2>
           
-          <!-- STATUS E MENSAGEM FINAL -->
-          <p id="auto-send-status" class="text-sm font-bold mt-2" style="color: #2e7d32;"></p>
+          <p id="auto-send-status" class="text-sm font-bold mt-2" style="color: #2e7d32; text-align: center;"></p>
           
-          <div id="final-success-message" class="hidden" style="margin-top:14px; background:rgba(76,175,80,0.1); border:1px solid rgba(76,175,80,0.4); padding:16px; border-radius:12px; text-align:center;">
-              <p style="margin:0; font-size:18px; font-weight:800; color:#1b5e20;">✅ Resultados processados automaticamente!</p>
-              <p style="margin:6px 0 0; font-size:14px; color:#2e7d32;">Seu relatório completo foi enviado para seu e-mail e para a nossa equipe.<br>Verifique sua caixa de entrada.</p>
+          <div id="final-success-message" class="hidden" style="margin-top:14px; background:#f0fdf4; border:1px solid #bbf7d0; padding:16px; border-radius:12px; text-align:center;">
+              <p style="margin:0; font-size:18px; font-weight:800; color:#166534;">✅ Resultados processados!</p>
+              <p style="margin:6px 0 0; font-size:14px; color:#15803d;">Seu relatório completo foi gerado e enviado para seu e-mail.</p>
           </div>
         </div>
 
         <div class="result-grid">
           
+          <!-- Destaque do Perfil -->
           <div class="profile-hero" id="profile-hero">
              <h3>Seu comportamento predominante é:</h3>
              <div class="highlight" id="profile-highlight">...</div>
           </div>
 
+          <!-- Gráfico Doughnut (Estilo Tríade) -->
           <div class="chart-card">
             <canvas id="resultChart"></canvas>
           </div>
 
-          <div style="margin-top: 20px;">
-            <h2 style="color: #1b5e20; font-size: 20px; font-weight: 800; margin-bottom: 14px; text-align: center;">Como você reage perante as dificuldades:</h2>
+          <div style="margin-top: 10px;">
+            <h2 style="color: #1e293b; font-size: 20px; font-weight: 800; margin-bottom: 16px; text-align: center;">Como você reage perante as dificuldades:</h2>
             
-            <div class="result-box" style="border-left-color: var(--color-submisso);">
-              <h3 style="color: var(--color-submisso);">Submissos</h3>
-              <p>São aqueles que se conformam passivamente com as adversidades da vida e renunciam ao sucesso. Acomodam-se, como se sofressem de uma espécie de “síndrome de Gabriela”, dizendo: “Eu nasci assim, cresci assim, sou mesmo assim...”. Alguns atribuem ao destino, à vontade de Deus ou ao seu “carma” a responsabilidade pelo que vivem, cruzando os braços, como se nada pudesse ser feito.</p>
-              <p>Aceitar as adversidades como parte natural da vida é válido, mas “aceitação” é diferente de “submissão”. Submeter-se é evitar enfrentar os desafios. A principal atitude dos submissos é lamentar-se.</p>
+            <div class="result-box" style="border-left: 6px solid var(--color-proativo);">
+              <h3 style="color: var(--color-proativo);">Proativos (Azul)</h3>
+              <p>Em vez de se curvar diante dos problemas, enfrentam as situações com determinação. Assumem suas responsabilidades e investem energia na resolução dos desafios.</p>
+              <p>Com essas atitudes, transformam dificuldades em oportunidades de aprendizado, desenvolvendo-se e fortalecendo-se a cada obstáculo superado.</p>
             </div>
 
-            <div class="result-box" style="border-left-color: var(--color-reativo);">
-              <h3 style="color: var(--color-reativo);">Reativos</h3>
+            <div class="result-box" style="border-left: 6px solid var(--color-reativo);">
+              <h3 style="color: var(--color-reativo);">Reativos (Vermelho)</h3>
               <p>Estes não aceitam as adversidades e se revoltam contra elas. Em vez de assumir a responsabilidade por resolver seus problemas, sempre encontram alguém para culpar. Assim, estão constantemente reclamando do chefe, dos subordinados, dos colegas ou da meta da empresa.</p>
               <p>Não importa se o problema é exclusivamente deles; eles insistem em negá-lo ou transferi-lo para outros.</p>
             </div>
 
-            <div class="result-box" style="border-left-color: var(--color-proativo);">
-              <h3 style="color: var(--color-proativo);">Proativos</h3>
-              <p>Em vez de se curvar diante dos problemas, enfrentam as situações com determinação. Assumem suas responsabilidades e investem energia na resolução dos desafios.</p>
-              <p>Com essas atitudes, transformam dificuldades em oportunidades de aprendizado, desenvolvendo-se e fortalecendo-se a cada obstáculo superado.</p>
+            <div class="result-box" style="border-left: 6px solid var(--color-submisso);">
+              <h3 style="color: var(--color-submisso);">Submissos (Amarelo)</h3>
+              <p>São aqueles que se conformam passivamente com as adversidades da vida e renunciam ao sucesso. Acomodam-se, como se sofressem de uma espécie de “síndrome de Gabriela”, dizendo: “Eu nasci assim, cresci assim...”. Alguns atribuem ao destino, à vontade de Deus ou ao seu “carma” a responsabilidade pelo que vivem.</p>
+              <p>Aceitar as adversidades como parte natural da vida é válido, mas “aceitação” é diferente de “submissão”. Submeter-se é evitar enfrentar os desafios.</p>
             </div>
             
-            <div class="instructions" style="background: #f1f5f9; border-color: #cbd5e1; border-left-color: #64748b;">
+            <div class="instructions" style="background: #f8fafc; border-color: #e2e8f0; border-left-color: #94a3b8; margin-top: 0;">
               <p><strong>Observação importante:</strong> Os comportamentos Submissos e Reativos têm um aspecto de manipulação, consciente ou inconsciente. A pessoa submissa, ao se vitimizar, tenta mobilizar outros para resolver seus problemas ou perdoar sua incapacidade. Já a pessoa reativa, ao culpar alguém por suas dificuldades, busca transferir a responsabilidade de resolvê-los.</p>
             </div>
           </div>
@@ -527,7 +513,8 @@
   // ========================================
   // ⚙️ CONFIGURAÇÃO DO GOOGLE APPS SCRIPT
   // ========================================
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx7UAS-FOFL8_sBNZeEj_usKvWr150-TLL5e3QjnLK3oQpypGaVlChFv8HAkxz-RodH/exec"; // Substitua com a URL correta gerada
+  // COLE A MESMA URL DO SEU SCRIPT AQUI ABAIXO
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx7UAS-FOFL8_sBNZeEj_usKvWr150-TLL5e3QjnLK3oQpypGaVlChFv8HAkxz-RodH/exec"; 
   const API_KEY = "2026Impulso$";
   
   let autoSendInProgress = false;
@@ -547,7 +534,7 @@
     const el = document.getElementById("auto-send-status");
     if (el) {
       el.textContent = msg;
-      el.style.color = type === 'success' ? '#1b5e20' : type === 'error' ? '#dc2626' : '#2e7d32';
+      el.style.color = type === 'success' ? '#166534' : type === 'error' ? '#dc2626' : '#15803d';
     }
   }
 
@@ -569,7 +556,6 @@
   // ========================================
   // 📝 DADOS DAS PERGUNTAS E PONTOS
   // ========================================
-  // Mapeamento extraído da planilha original:
   // A = Reativa | B = Proativa | C = Submissa
   const questions = [
     { text: "1. Numa situação de estresse, lida com calma para resolver o problema?", cat: "B" },
@@ -622,76 +608,75 @@
     const doc = new jsPDF({ format: "a4" });
     
     // Cabeçalho
-    doc.setFillColor(229, 231, 235);
+    doc.setFillColor(240, 247, 244);
     doc.rect(0, 0, 210, 297, 'F');
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(20);
-    doc.setTextColor(46, 125, 50); // Verde primário
-    doc.text('ImpulsoCoaching', 20, 15);
+    doc.setFontSize(22);
+    doc.setTextColor(27, 94, 32); 
+    doc.text('ImpulsoCoaching', 20, 18);
     doc.setFontSize(16);
-    doc.text('Autodiagnóstico: Resiliência', 20, 23);
+    doc.text('Autodiagnóstico: Resiliência', 20, 26);
     
     // Dados Pessoais
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(11);
-    doc.setTextColor(0);
-    doc.text(`Nome: ${sanitizeInput(data.prettyData.nome)}`, 20, 35);
-    doc.text(`Profissão: ${sanitizeInput(data.prettyData.profissao)}`, 20, 41);
-    doc.text(`Idade: ${sanitizeInput(data.prettyData.idade)}`, 20, 47);
-    doc.text(`E-mail: ${sanitizeInput(data.prettyData.email)}`, 20, 53);
+    doc.setTextColor(51, 65, 85);
+    doc.text(`Nome: ${sanitizeInput(data.prettyData.nome)}`, 20, 38);
+    doc.text(`Profissão: ${sanitizeInput(data.prettyData.profissao)}`, 20, 44);
+    doc.text(`Idade: ${sanitizeInput(data.prettyData.idade)}`, 20, 50);
+    doc.text(`E-mail: ${sanitizeInput(data.prettyData.email)}`, 20, 56);
     
     // Resultado Principal
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(14);
+    doc.setFontSize(15);
     doc.setTextColor(data.color[0], data.color[1], data.color[2]);
-    doc.text(`Resultado: Perfil ${data.behavior} (${data.maxScore} pontos)`, 20, 65);
+    doc.text(`Seu Perfil Predominante: ${data.behavior} (${data.pcts.Max}%)`, 20, 70);
     
     // Pontuações
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(11);
-    doc.setTextColor(50, 65, 81);
-    doc.text('Pontuação Detalhada:', 20, 75);
-    doc.text(`Reativa (A): ${data.totals.A} pontos`, 30, 82);
-    doc.text(`Proativa (B): ${data.totals.B} pontos`, 30, 88);
-    doc.text(`Submissa (C): ${data.totals.C} pontos`, 30, 94);
+    doc.setTextColor(51, 65, 85);
+    doc.text('Resumo das Dimensões:', 20, 80);
+    doc.text(`Proativo (Azul): ${data.totals.B} pontos (${data.pcts.B}%)`, 25, 87);
+    doc.text(`Reativo (Vermelho): ${data.totals.A} pontos (${data.pcts.A}%)`, 25, 93);
+    doc.text(`Submisso (Amarelo): ${data.totals.C} pontos (${data.pcts.C}%)`, 25, 99);
     
-    // Gráfico
+    // Gráfico Doughnut Centrado
     if (data.chartImg) {
       try {
-        doc.addImage(data.chartImg, 'PNG', 45, 105, 120, 70);
+        // x=65 deixa o grafico de 80px perfeitamente centralizado na pagina (210/2)
+        doc.addImage(data.chartImg, 'PNG', 65, 110, 80, 80);
       } catch(e) { console.log(e); }
     }
 
     // Textos Explicativos
-    let y = 185;
+    let y = 205;
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
     doc.setTextColor(27, 94, 32);
-    doc.text('Como você reage perante as dificuldades:', 20, y);
+    doc.text('Entenda o seu perfil perante as dificuldades:', 20, y);
     y += 8;
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.setTextColor(0);
+    doc.setTextColor(51, 65, 85);
     
     const explicacao = [
-      "SUBMISSOS: São aqueles que se conformam passivamente com as adversidades da vida e renunciam ao sucesso. Acomodam-se. Atribuem ao destino ou a terceiros a responsabilidade pelo que vivem.",
+      "PROATIVOS: Em vez de se curvar diante dos problemas, enfrentam as situações com determinação. Assumem suas responsabilidades e investem energia na resolução dos desafios transformando-os em aprendizado.",
       "",
       "REATIVOS: Estes não aceitam as adversidades e se revoltam contra elas. Em vez de assumir a responsabilidade por resolver seus problemas, sempre encontram alguém para culpar (chefe, colegas, metas).",
       "",
-      "PROATIVOS: Em vez de se curvar diante dos problemas, enfrentam as situações com determinação. Assumem suas responsabilidades e investem energia na resolução dos desafios transformando-os em aprendizado.",
-      "",
-      "Obs: Comportamentos Submissos e Reativos têm aspecto de manipulação. A pessoa submissa se vitimiza tentando mobilizar outros, e a reativa culpa terceiros para transferir a responsabilidade."
+      "SUBMISSOS: São aqueles que se conformam passivamente com as adversidades da vida e renunciam ao sucesso. Acomodam-se. Atribuem ao destino ou a terceiros a responsabilidade pelo que vivem.",
     ].join("\n");
 
     const splitText = doc.splitTextToSize(explicacao, 170);
     doc.text(splitText, 20, y);
 
     // Rodapé
-    doc.setFontSize(10);
-    doc.setTextColor(55, 65, 81);
-    doc.text('Fonte: Instituto Impulso Coaching – www.impulsocoaching.com.br', 105, 280, { align: 'center' });
-    doc.text('Rogério Braga', 105, 286, { align: 'center' });
+    doc.setFontSize(9);
+    doc.setTextColor(100, 116, 139);
+    doc.text('Fonte: Instituto Impulso Coaching – www.impulsocoaching.com.br', 105, 284, { align: 'center' });
+    doc.text('Rogério Braga', 105, 289, { align: 'center' });
     
     const safeName = sanitizeInput(data.prettyData.nome).replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_]/g, "");
     const pdfFileName = `Resiliencia_Impulso_${safeName}.pdf`;
@@ -705,7 +690,7 @@
   async function autoSendWithPdf() {
     if (autoSendInProgress || autoSendDone) return;
     autoSendInProgress = true;
-    setAutoSendStatus("⏳ Gerando relatório e enviando automaticamente...", "pending");
+    setAutoSendStatus("⏳ Gerando relatório e enviando...", "pending");
 
     try {
       const data = window._resilienciaData;
@@ -716,22 +701,22 @@
         data.chartImg = window.myChart ? document.getElementById("resultChart").toDataURL("image/png") : null;
       } catch(e) {}
 
-      // Gera PDF em Base64
+      // Gera PDF
       const { doc, pdfFileName } = await generatePdfDocAndFileName();
       const base64 = doc.output("datauristring").split(",")[1];
 
-      // Resumo para o email
+      // Resumo para o corpo do email
       const resumoEmail = 
-        `Perfil Predominante: ${data.behavior} (${data.maxScore} pontos)\n\n` +
-        `Pontuações:\n` +
-        `Proativa (B): ${data.totals.B}\n` +
-        `Reativa (A): ${data.totals.A}\n` +
-        `Submissa (C): ${data.totals.C}\n`;
+        `Perfil Predominante: ${data.behavior} (${data.pcts.Max}%)\n\n` +
+        `Detalhamento das Pontuações:\n` +
+        `Proativo (Azul): ${data.totals.B} pts (${data.pcts.B}%)\n` +
+        `Reativo (Vermelho): ${data.totals.A} pts (${data.pcts.A}%)\n` +
+        `Submisso (Amarelo): ${data.totals.C} pts (${data.pcts.C}%)\n`;
 
       const payload = {
         apiKey: API_KEY,
         testId: "resiliencia_v1",
-        nomeTeste: "Autodiagnóstico de Resiliência", // Identificador dinâmico
+        nomeTeste: "Autodiagnóstico de Resiliência",
         nome: data.prettyData.nome,
         email: data.prettyData.email,
         idade: data.prettyData.idade,
@@ -746,7 +731,7 @@
       await wait(1500);
 
       autoSendDone = true;
-      document.getElementById('auto-send-status').textContent = "";
+      document.getElementById('auto-send-status').style.display = "none";
       document.getElementById('final-success-message').classList.remove('hidden');
 
     } catch (e) {
@@ -888,79 +873,80 @@
       if (cat === 'C') totalC += val;
     });
 
+    const totalGeral = totalA + totalB + totalC;
+    const pctA = totalGeral > 0 ? Math.round((totalA / totalGeral) * 100) : 0;
+    const pctB = totalGeral > 0 ? Math.round((totalB / totalGeral) * 100) : 0;
+    const pctC = totalGeral > 0 ? Math.round((totalC / totalGeral) * 100) : 0;
+
     const maxScore = Math.max(totalA, totalB, totalC);
     let behavior = '';
     let colorHex = '';
     let colorRgb = [];
+    let maxPct = 0;
 
     if (totalA === maxScore && totalA === totalB && totalA === totalC) {
       behavior = 'Empate (Misto)';
       colorHex = '#2e7d32';
       colorRgb = [46, 125, 50];
-    } else if (totalA === maxScore) {
-      behavior = 'Reativo';
-      colorHex = '#e91e63';
-      colorRgb = [233, 30, 99];
+      maxPct = pctA;
     } else if (totalB === maxScore) {
       behavior = 'Proativo';
-      colorHex = '#4caf50';
-      colorRgb = [76, 175, 80];
+      colorHex = '#3b82f6'; // Azul
+      colorRgb = [59, 130, 246];
+      maxPct = pctB;
+    } else if (totalA === maxScore) {
+      behavior = 'Reativo';
+      colorHex = '#ef4444'; // Vermelho
+      colorRgb = [239, 68, 68];
+      maxPct = pctA;
     } else {
       behavior = 'Submisso';
-      colorHex = '#ff9800';
-      colorRgb = [255, 152, 0];
+      colorHex = '#f59e0b'; // Amarelo
+      colorRgb = [245, 158, 11];
+      maxPct = pctC;
     }
 
-    document.getElementById('profile-highlight').textContent = `${behavior} (${maxScore} pontos)`;
+    document.getElementById('profile-highlight').textContent = `${behavior} (${maxPct}%)`;
     document.getElementById('profile-highlight').style.color = colorHex;
 
-    // Criar Gráfico em HD
+    // Criar Gráfico Circular (Doughnut) em HD
     if (window.myChart) window.myChart.destroy();
     const ctx = document.getElementById('resultChart').getContext('2d');
     
     Chart.register(ChartDataLabels);
     
     window.myChart = new Chart(ctx, {
-      type: 'bar',
+      type: 'doughnut',
       data: {
-        labels: ['Reativa (A)', 'Proativa (B)', 'Submissa (C)'],
+        labels: ['Proativo', 'Reativo', 'Submisso'],
         datasets: [{
-          data: [totalA, totalB, totalC],
-          backgroundColor: ['#e91e63', '#4caf50', '#ff9800'],
-          borderColor: ['#c2185b', '#388e3c', '#f57c00'],
-          borderWidth: 1,
-          borderRadius: 6
+          data: [pctB, pctA, pctC],
+          backgroundColor: ['#3b82f6', '#ef4444', '#f59e0b'],
+          borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+          borderWidth: 3,
+          hoverOffset: 6
         }]
       },
       options: {
-        devicePixelRatio: 4, // 🚀 GRÁFICO EM HD PARA O PDF
-        indexAxis: 'y',
+        devicePixelRatio: 4, // 🚀 HD PARA O PDF
         responsive: true,
         maintainAspectRatio: false,
-        scales: {
-          x: {
-            beginAtZero: true,
-            max: 30,
-            title: { display: true, text: 'Pontuação', color: '#1b5e20', font: { size: 14, weight: 'bold' } },
-            ticks: { color: '#1b5e20' }
-          },
-          y: {
-            ticks: { color: '#1b5e20', font: { size: 13, weight: 'bold' } }
-          }
-        },
+        cutout: '55%', // Furo no meio (Estilo Tríade)
         plugins: {
-          legend: { display: false },
+          legend: { 
+            position: 'bottom',
+            labels: { font: { family: 'Poppins', size: 14, weight: '500' }, padding: 20, color: '#334155' }
+          },
           datalabels: {
-            anchor: 'end',
-            align: 'right',
-            formatter: (value) => `${value} pts`,
-            color: '#1b5e20',
-            font: { weight: 'bold', size: 13 },
-            offset: 4
+            formatter: (value) => value > 0 ? value + '%' : '',
+            color: (context) => context.dataIndex === 2 ? '#fff' : '#fff', // Branco p/ todos
+            font: { weight: 'bold', size: 16, family: 'Poppins' },
+            textShadowColor: 'rgba(0,0,0,0.4)',
+            textShadowBlur: 4
           }
         },
-        layout: { padding: { right: 40 } },
-        animation: { duration: 0 } // Desativa animação para captura imediata no PDF
+        layout: { padding: 10 },
+        animation: { duration: 0 } // Desativa animação para captura do PDF
       }
     });
 
@@ -974,6 +960,7 @@
         email: elEmail.value.trim()
       },
       totals: { A: totalA, B: totalB, C: totalC },
+      pcts: { A: pctA, B: pctB, C: pctC, Max: maxPct },
       maxScore,
       behavior,
       color: colorRgb
@@ -998,7 +985,6 @@
     
     window._resilienciaData = payload;
 
-    // Aguarda um instante para garantir a renderização e envia
     setTimeout(() => {
         autoSendWithPdf();
     }, 800);
