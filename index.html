@@ -18,7 +18,7 @@
 
   <style>
     :root {
-      /* PALETA SUAVE E PROFISSIONAL (Verde Menta Corporativo) */
+      /* PALETA SUAVE E PROFISSIONAL */
       --bg1: #f0f7f4; 
       --bg2: #dcf0e2; 
       --surface: #ffffff;
@@ -39,10 +39,11 @@
       --radius: 16px;
       --radius2: 12px;
       
-      /* CORES DOS PERFIS (Conforme Imagem Enviada) */
-      --color-proativo: #1d4ed8; /* Azul Profundo */
-      --color-reativo: #ef4444;  /* Vermelho Vibrante */
-      --color-submisso: #eab308; /* Amarelo Intenso */
+      /* CORES EXATAS DA IMAGEM ENVIADA */
+      --color-proativo: #0055FF; /* Azul Royal Vibrante */
+      --color-reativo: #FF0000;  /* Vermelho Puro */
+      --color-submisso: #FFD700; /* Amarelo Sol */
+      --chart-bg: #000000;       /* Fundo Preto do Gráfico */
     }
 
     *{ box-sizing:border-box; }
@@ -331,40 +332,41 @@
       font-weight: 800;
     }
 
-    /* Gráfico Circular (Pizza Sólida) */
+    /* Gráfico Fiel à Imagem (Fundo Preto) */
     .chart-card{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:var(--radius2);
-      padding:24px;
-      box-shadow:var(--shadow2);
-      margin: 0 auto;
-      max-width: 450px; 
+      background: var(--chart-bg);
+      border: 4px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      margin: 10px auto 20px;
+      max-width: 480px; 
       width: 100%;
     }
     .chart-card canvas{
       width:100% !important;
       height:auto !important;
-      max-height: 320px !important;
+      max-height: 350px !important;
     }
 
     .result-box{
       background:#fff;
       border:1px solid var(--border);
-      padding:18px;
+      padding:20px;
       border-radius:var(--radius2);
       box-shadow:var(--shadow2);
       margin-bottom: 16px;
     }
     .result-box h3{
-      margin:0 0 8px;
+      margin:0 0 10px;
       font-size:18px;
       font-weight:800;
     }
-    .result-box p{ margin:0 0 10px 0; color:#334155; font-size:14px; line-height: 1.6; }
+    .result-box p{ margin:0 0 10px 0; color:#334155; font-size:14px; line-height: 1.6; text-align: justify; }
     .result-box p:last-child { margin-bottom: 0; }
-    .result-box ul { margin: 0; padding-left: 20px; font-size:14px; color:#334155; }
-    .result-box li { margin-bottom: 4px; }
+    .result-box ul { margin: 10px 0 0; padding-left: 20px; font-size:14px; color:#334155; }
+    .result-box li { margin-bottom: 6px; }
+    .result-box strong { font-weight: 700; color: #0f172a; }
 
     .footer{
       margin-top:30px;
@@ -458,7 +460,7 @@
           
           <div id="final-success-message" class="hidden" style="margin-top:14px; background:#f0fdf4; border:1px solid #bbf7d0; padding:16px; border-radius:12px; text-align:center;">
               <p style="margin:0; font-size:18px; font-weight:800; color:#166534;">✅ Resultados processados e salvos!</p>
-              <p style="margin:6px 0 0; font-size:14px; color:#15803d;">Seu relatório completo foi gerado e enviado para seu e-mail.</p>
+              <p style="margin:6px 0 0; font-size:14px; color:#15803d;">Seu laudo completo foi gerado e enviado para seu e-mail.</p>
           </div>
         </div>
 
@@ -470,38 +472,38 @@
              <div class="highlight" id="profile-highlight">...</div>
           </div>
 
-          <!-- Gráfico Pie (Pizza Sólida - Padrão Imagem) -->
+          <!-- Gráfico Exato da Imagem (Fundo Preto) -->
           <div class="chart-card">
             <canvas id="resultChart"></canvas>
           </div>
 
           <div style="margin-top: 10px;">
-            <h2 style="color: #1e293b; font-size: 20px; font-weight: 800; margin-bottom: 16px; text-align: center;">Análise Profunda dos Perfis:</h2>
+            <h2 style="color: #1e293b; font-size: 20px; font-weight: 800; margin-bottom: 16px; text-align: center;">Laudo Comportamental de Resiliência:</h2>
             
             <div class="result-box" style="border-left: 6px solid var(--color-proativo);">
               <h3 style="color: var(--color-proativo);">Perfil Proativo (Azul)</h3>
-              <p>Indivíduos com predominância proativa assumem o controle de suas vidas e de suas reações diante das adversidades. Entendem que, embora não possam controlar todos os eventos externos, possuem domínio sobre como responderão a eles.</p>
+              <p>Indivíduos com predominância proativa assumem o controle de suas vidas e de suas reações diante das adversidades. Possuem um "Locus de Controle Interno", entendendo que, embora não possam controlar todos os eventos externos, têm domínio absoluto sobre como responderão a eles.</p>
               <ul>
-                <li><strong>Pontos Fortes:</strong> Foco na solução, responsabilidade pessoal, iniciativa, flexibilidade emocional e facilidade em transformar crises em oportunidades. Liderança natural.</li>
-                <li><strong>Ponto de Atenção:</strong> Podem se sobrecarregar ao tentar resolver tudo sozinhos. Precisam lembrar da importância de delegar e pedir ajuda.</li>
+                <li><strong>Pontos Fortes:</strong> Foco implacável na solução, auto-responsabilidade, inteligência emocional elevada, flexibilidade adaptativa e facilidade em transformar crises em oportunidades. Forte perfil de liderança.</li>
+                <li><strong>Ponto de Atenção:</strong> Risco de sobrecarga física e mental ao tentarem absorver e resolver todos os problemas sozinhos. Precisam exercitar a delegação e o trabalho em equipe.</li>
               </ul>
             </div>
 
             <div class="result-box" style="border-left: 6px solid var(--color-reativo);">
               <h3 style="color: var(--color-reativo);">Perfil Reativo (Vermelho)</h3>
-              <p>Pessoas com tendências reativas costumam responder aos estímulos externos de forma automática, movidas pela emoção imediata. Frequentemente encontram justificativas e culpados para seus problemas (chefe, metas, colegas).</p>
+              <p>Pessoas com tendências reativas costumam responder aos estímulos externos de forma automática, movidas pela emoção imediata e pelo impulso. Diante de falhas, frequentemente buscam justificativas lógicas ou procuram culpados externos (chefe, metas, colegas, mercado).</p>
               <ul>
-                <li><strong>Pontos Fortes:</strong> Forte senso de justiça, defesa de seus ideais e energia intensa que, se bem canalizada, pode impulsionar grandes realizações e quebras de paradigmas.</li>
-                <li><strong>Ponto de Atenção:</strong> Risco de desperdiçar energia reclamando ao invés de agir; deterioração de relacionamentos pela constante transferência de responsabilidades.</li>
+                <li><strong>Pontos Fortes:</strong> Forte senso de justiça, defesa apaixonada de seus ideais, transparência em suas intenções e uma energia intensa que, se bem direcionada, pode impulsionar grandes realizações.</li>
+                <li><strong>Ponto de Atenção:</strong> Desperdício de energia vital em reclamações e vitimização; risco elevado de deterioração de relacionamentos interpessoais devido à constante transferência de responsabilidades.</li>
               </ul>
             </div>
 
             <div class="result-box" style="border-left: 6px solid var(--color-submisso);">
               <h3 style="color: var(--color-submisso);">Perfil Submisso (Amarelo)</h3>
-              <p>Caracterizado pela aceitação passiva das dificuldades. Diante de um obstáculo, a pessoa tende a recuar ou acomodar-se (Síndrome de Gabriela), acreditando que o destino ou fatores externos determinam sua realidade.</p>
+              <p>Este perfil é caracterizado pela aceitação passiva das dificuldades. Diante de um obstáculo, a pessoa tende a recuar ou acomodar-se, acreditando intimamente que não possui os recursos necessários para alterar a situação. Terceiriza o controle da sua vida para o "destino" ou fatores externos.</p>
               <ul>
-                <li><strong>Pontos Fortes:</strong> Alta capacidade de suporte, resiliência pacífica em ambientes hostis, empatia aflorada e facilidade em evitar conflitos desnecessários.</li>
-                <li><strong>Ponto de Atenção:</strong> Renúncia ao próprio potencial de sucesso, estagnação profissional e vitimização inconsciente para mobilizar a ajuda alheia.</li>
+                <li><strong>Pontos Fortes:</strong> Altíssima capacidade de suporte e escuta ativa, resiliência pacífica em ambientes de alta pressão, empatia muito aflorada e facilidade em evitar ou pacificar conflitos desnecessários.</li>
+                <li><strong>Ponto de Atenção:</strong> Conformismo paralisante, estagnação na carreira e na vida pessoal, e uma vitimização inconsciente que visa mobilizar a ajuda e a compaixão de terceiros.</li>
               </ul>
             </div>
             
@@ -510,7 +512,7 @@
 
         <div class="footer">
           <p>Instituto Impulso Coaching – <a href="http://www.impulsocoaching.com.br" target="_blank">www.impulsocoaching.com.br</a></p>
-          <p>Rogério Braga</p>
+          <p>Rogério Braga - Master Coach</p>
         </div>
       </section>
 
@@ -521,7 +523,7 @@
   // ========================================
   // ⚙️ CONFIGURAÇÃO DO GOOGLE APPS SCRIPT
   // ========================================
-  // URL INSERIDA CONFORME SOLICITADO
+  // URL JÁ CONFIGURADA COM O LINK FORNECIDO
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx7UAS-FOFL8_sBNZeEj_usKvWr150-TLL5e3QjnLK3oQpypGaVlChFv8HAkxz-RodH/exec"; 
   const API_KEY = "2026Impulso$";
   
@@ -606,7 +608,7 @@
   ];
 
   // ========================================
-  // 📄 GERAÇÃO DO PDF (Com Textos Profissionais)
+  // 📄 GERAÇÃO DO PDF PROFISSIONAL (LAUDO)
   // ========================================
   async function generatePdfDocAndFileName() {
     const data = window._resilienciaData;
@@ -615,15 +617,15 @@
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ format: "a4" });
     
-    // Cabeçalho
+    // Cabeçalho Premium
     doc.setFillColor(240, 247, 244);
     doc.rect(0, 0, 210, 297, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(22);
     doc.setTextColor(27, 94, 32); 
-    doc.text('ImpulsoCoaching', 20, 18);
+    doc.text('Instituto Impulso Coaching', 20, 18);
     doc.setFontSize(16);
-    doc.text('Autodiagnóstico: Resiliência', 20, 26);
+    doc.text('Laudo Comportamental de Resiliência', 20, 26);
     
     // Dados Pessoais
     doc.setFont('helvetica', 'normal');
@@ -644,20 +646,21 @@
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(11);
     doc.setTextColor(51, 65, 85);
-    doc.text('Resumo das Dimensões:', 20, 80);
+    doc.text('Resumo das Dimensões Analisadas:', 20, 80);
     doc.text(`Proativo (Azul): ${data.totals.B} pontos (${data.pcts.B}%)`, 25, 87);
     doc.text(`Reativo (Vermelho): ${data.totals.A} pontos (${data.pcts.A}%)`, 25, 93);
     doc.text(`Submisso (Amarelo): ${data.totals.C} pontos (${data.pcts.C}%)`, 25, 99);
     
-    // Gráfico Pie Centrado
+    // Gráfico Pie Extraído (Com Fundo Preto já embutido)
     if (data.chartImg) {
       try {
+        // Renderiza o gráfico perfeitamente no centro da página
         doc.addImage(data.chartImg, 'PNG', 65, 110, 80, 80);
       } catch(e) { console.log(e); }
     }
 
-    // Textos Explicativos Detalhados e Profissionais
-    let y = 195;
+    // Textos do Laudo Comportamental Profundo
+    let y = 198;
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(27, 94, 32);
@@ -665,37 +668,37 @@
     y += 8;
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.setTextColor(51, 65, 85);
+    doc.setFontSize(9.5);
+    doc.setTextColor(40, 50, 60);
     
     const explicacao = [
       "COMPORTAMENTO PROATIVO (AZUL)",
-      "Indivíduos com predominância proativa assumem o controle de suas vidas e reações diante das adversidades. Entendem que possuem domínio interno sobre as respostas aos eventos.",
-      "• Pontos Fortes: Foco na solução, responsabilidade, capacidade de transformar crises em oportunidades, liderança natural.",
-      "• Ponto de Atenção: Risco de sobrecarga ao tentar resolver tudo sozinho. Deve lembrar de delegar.",
+      "Indivíduos com predominância proativa assumem o controle de suas vidas e de suas reações diante das adversidades. Possuem um 'Locus de Controle Interno', entendendo que têm domínio sobre como responderão aos eventos.",
+      "• Pontos Fortes: Foco na solução, auto-responsabilidade, inteligência emocional e facilidade em transformar crises em oportunidades. Forte perfil de liderança.",
+      "• Pontos de Atenção: Risco de sobrecarga física e mental ao tentarem absorver tudo sozinhos. Precisam exercitar a delegação.",
       "",
       "COMPORTAMENTO REATIVO (VERMELHO)",
-      "Pessoas com tendências reativas respondem aos estímulos de forma automática, movidas pela emoção imediata. Frequentemente buscam justificativas ou culpados externos.",
-      "• Pontos Fortes: Forte senso de justiça, energia intensa que pode impulsionar realizações se bem canalizada.",
-      "• Ponto de Atenção: Desperdício de energia em reclamações; risco de desgastar relacionamentos transferindo responsabilidades.",
+      "Pessoas com tendências reativas costumam responder aos estímulos externos de forma automática e por impulso. Diante de falhas, frequentemente buscam justificativas lógicas ou procuram culpados externos.",
+      "• Pontos Fortes: Forte senso de justiça, defesa apaixonada de seus ideais e uma energia intensa que pode impulsionar grandes realizações.",
+      "• Pontos de Atenção: Desperdício de energia em reclamações; risco de deterioração de relacionamentos pela constante transferência de responsabilidades.",
       "",
       "COMPORTAMENTO SUBMISSO (AMARELO)",
-      "Caracterizado pela aceitação passiva. A pessoa recua, acreditando que não possui recursos para alterar a situação, terceirizando o controle para fatores externos ou destino.",
-      "• Pontos Fortes: Alta capacidade de suporte e escuta, empatia, evita desgastes desnecessários em crises.",
-      "• Ponto de Atenção: Conformismo excessivo, estagnação e renúncia ao próprio potencial de sucesso."
+      "Caracterizado pela aceitação passiva das dificuldades. A pessoa tende a recuar ou acomodar-se, terceirizando o controle da sua vida para o 'destino' ou fatores externos.",
+      "• Pontos Fortes: Altíssima capacidade de suporte e escuta ativa, resiliência pacífica em ambientes de alta pressão e empatia aflorada.",
+      "• Pontos de Atenção: Conformismo paralisante, estagnação na carreira e uma vitimização inconsciente para mobilizar a ajuda de terceiros."
     ].join("\n");
 
     const splitText = doc.splitTextToSize(explicacao, 170);
     doc.text(splitText, 20, y);
 
-    // Rodapé
+    // Rodapé Master Coach
     doc.setFontSize(9);
     doc.setTextColor(100, 116, 139);
-    doc.text('Fonte: Instituto Impulso Coaching – www.impulsocoaching.com.br', 105, 284, { align: 'center' });
+    doc.text('Instituto Impulso Coaching de Liderança – www.impulsocoaching.com.br', 105, 284, { align: 'center' });
     doc.text('Rogério Braga - Master Coach', 105, 289, { align: 'center' });
     
     const safeName = sanitizeInput(data.prettyData.nome).replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_]/g, "");
-    const pdfFileName = `Resiliencia_Impulso_${safeName}.pdf`;
+    const pdfFileName = `Laudo_Resiliencia_${safeName}.pdf`;
 
     return { doc, pdfFileName };
   }
@@ -706,15 +709,15 @@
   async function autoSendWithPdf() {
     if (autoSendInProgress || autoSendDone) return;
     autoSendInProgress = true;
-    setAutoSendStatus("⏳ Gerando relatório e enviando...", "pending");
+    setAutoSendStatus("⏳ Gerando laudo e enviando...", "pending");
 
     try {
       const data = window._resilienciaData;
       if (!data) throw new Error("Sem dados.");
 
-      // Extrai Gráficos
+      // Extrai Imagem do Gráfico em HD
       try {
-        data.chartImg = window.myChart ? document.getElementById("resultChart").toDataURL("image/png") : null;
+        data.chartImg = window.myChart ? document.getElementById("resultChart").toDataURL("image/png", 1.0) : null;
       } catch(e) {}
 
       // Gera PDF
@@ -768,6 +771,20 @@
   // ========================================
   // 🏁 CONTROLE DA INTERFACE GUIADA
   // ========================================
+  // Plugin para pintar o fundo do Canvas de Preto
+  const customBgPlugin = {
+    id: 'customCanvasBackgroundColor',
+    beforeDraw: (chart, args, options) => {
+      const {ctx} = chart;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-over';
+      ctx.fillStyle = options.color || '#000000';
+      ctx.fillRect(0, 0, chart.width, chart.height);
+      ctx.restore();
+    }
+  };
+  Chart.register(ChartDataLabels, customBgPlugin);
+
   let currentIndex = 0;
   const answers = new Array(30).fill(null);
 
@@ -890,9 +907,9 @@
     });
 
     const totalGeral = totalA + totalB + totalC;
-    const pctA = totalGeral > 0 ? Math.round((totalA / totalGeral) * 100) : 0;
-    const pctB = totalGeral > 0 ? Math.round((totalB / totalGeral) * 100) : 0;
-    const pctC = totalGeral > 0 ? Math.round((totalC / totalGeral) * 100) : 0;
+    const pctA = totalGeral > 0 ? ((totalA / totalGeral) * 100) : 0;
+    const pctB = totalGeral > 0 ? ((totalB / totalGeral) * 100) : 0;
+    const pctC = totalGeral > 0 ? ((totalC / totalGeral) * 100) : 0;
 
     const maxScore = Math.max(totalA, totalB, totalC);
     let behavior = '';
@@ -904,64 +921,63 @@
       behavior = 'Empate (Misto)';
       colorHex = '#2e7d32';
       colorRgb = [46, 125, 50];
-      maxPct = pctA;
+      maxPct = pctA.toFixed(1);
     } else if (totalB === maxScore) {
       behavior = 'Proativo';
-      colorHex = '#1d4ed8'; // Azul Profundo
-      colorRgb = [29, 78, 216];
-      maxPct = pctB;
+      colorHex = '#0055FF'; // Azul Royal
+      colorRgb = [0, 85, 255];
+      maxPct = pctB.toFixed(1);
     } else if (totalA === maxScore) {
       behavior = 'Reativo';
-      colorHex = '#ef4444'; // Vermelho Vibrante
-      colorRgb = [239, 68, 68];
-      maxPct = pctA;
+      colorHex = '#FF0000'; // Vermelho Puro
+      colorRgb = [255, 0, 0];
+      maxPct = pctA.toFixed(1);
     } else {
       behavior = 'Submisso';
-      colorHex = '#eab308'; // Amarelo Intenso
-      colorRgb = [234, 179, 8];
-      maxPct = pctC;
+      colorHex = '#FFD700'; // Amarelo Sol
+      colorRgb = [255, 215, 0];
+      maxPct = pctC.toFixed(1);
     }
 
     document.getElementById('profile-highlight').textContent = `${behavior} (${maxPct}%)`;
     document.getElementById('profile-highlight').style.color = colorHex;
 
-    // Criar Gráfico PIE (Pizza sólida)
+    // Criar Gráfico EXATO DA IMAGEM (Pizza, Fundo Preto, Cores Vibrantes)
     if (window.myChart) window.myChart.destroy();
     const ctx = document.getElementById('resultChart').getContext('2d');
     
-    Chart.register(ChartDataLabels);
-    
     window.myChart = new Chart(ctx, {
-      type: 'pie', // GRÁFICO DE PIZZA SÓLIDO
+      type: 'pie',
       data: {
         labels: ['Proativo', 'Reativo', 'Submisso'],
         datasets: [{
           data: [pctB, pctA, pctC],
-          backgroundColor: ['#1d4ed8', '#ef4444', '#eab308'], // Azul, Vermelho, Amarelo
-          borderColor: ['#ffffff', '#ffffff', '#ffffff'],
-          borderWidth: 2,
-          hoverOffset: 6
+          backgroundColor: ['#0055FF', '#FF0000', '#FFD700'], // Cores exatas
+          borderColor: ['#000000', '#000000', '#000000'],     // Bordas pretas para não aparecer na linha de corte
+          borderWidth: 1,
+          hoverOffset: 4
         }]
       },
       options: {
-        devicePixelRatio: 4, // 🚀 HD PARA O PDF
+        devicePixelRatio: 4, // HD 
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
+          customCanvasBackgroundColor: { color: '#000000' }, // Plugin aciona fundo preto no canvas
           legend: { 
             position: 'bottom',
-            labels: { font: { family: 'Poppins', size: 14, weight: '500' }, padding: 20, color: '#334155' }
+            labels: { font: { family: 'Poppins', size: 14, weight: '600' }, padding: 20, color: '#ffffff' } // Texto legenda branco
           },
           datalabels: {
-            formatter: (value) => value > 0 ? value + '%' : '',
-            color: '#ffffff', // Texto Branco garantido para alto contraste
-            font: { weight: 'bold', size: 16, family: 'Poppins' },
-            textShadowColor: 'rgba(0,0,0,0.6)',
-            textShadowBlur: 4
+            formatter: (value) => value > 0 ? value.toFixed(1) + '%' : '', // 1 Casa Decimal igual à imagem
+            color: '#ffffff', // Texto Branco
+            font: { weight: 'bold', size: 18, family: 'Poppins' },
+            textShadowColor: 'rgba(0,0,0,0.8)', // Sombra para o branco aparecer em cima do amarelo
+            textShadowBlur: 6
           }
         },
-        layout: { padding: 10 },
-        animation: { duration: 0 } // Desativa animação para captura imediata do PDF
+        layout: { padding: 20 },
+        animation: { duration: 0 } // Desativa animação para captura perfeita no PDF
       }
     });
 
@@ -975,7 +991,7 @@
         email: elEmail.value.trim()
       },
       totals: { A: totalA, B: totalB, C: totalC },
-      pcts: { A: pctA, B: pctB, C: pctC, Max: maxPct },
+      pcts: { A: pctA.toFixed(1), B: pctB.toFixed(1), C: pctC.toFixed(1), Max: maxPct },
       maxScore,
       behavior,
       color: colorRgb
@@ -1000,6 +1016,7 @@
     
     window._resilienciaData = payload;
 
+    // Aguarda um instante e já dispara o envio
     setTimeout(() => {
         autoSendWithPdf();
     }, 800);
