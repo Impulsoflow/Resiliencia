@@ -489,7 +489,7 @@
             
             <div class="result-box" style="border-left: 6px solid var(--color-proativo);">
               <h3 style="color: var(--color-proativo);">Perfil Proativo (Azul)</h3>
-              <p>Indivíduos com predominância proativa assumem o controle de suas vidas e de suas reações diante das adversidades. Possuem um "Locus de Controle Interno", entendendo que, embora não possam controlar todos os eventos externos, têm domínio absoluto sobre como responderão a eles.</p>
+              <p>Indivíduos com predominância proativa assumem o controle de suas vidas e de suas reações diante das adversidades. Possuem um "Locus de Controle Interno", entendendo que, embora não possam controlar todos os eventos externos, têm domínio absoluto sobre como responder a eles.</p>
               <ul>
                 <li><strong>Pontos Fortes:</strong> Foco implacável na solução, auto-responsabilidade, inteligência emocional elevada, flexibilidade adaptativa e facilidade em transformar crises em oportunidades. Forte perfil de liderança.</li>
                 <li><strong>Ponto de Atenção:</strong> Risco de sobrecarga física e mental ao tentarem absorver e resolver todos os problemas sozinhos. Precisam exercitar a delegação e o trabalho em equipe.</li>
@@ -633,14 +633,27 @@
     doc.setFontSize(16);
     doc.text('Laudo Comportamental de Resiliência', 20, 26);
     
-    // Dados Pessoais
+    // Dados Pessoais e Resultados na mesma linha para otimizar espaço
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.setTextColor(51, 65, 85);
+    
+    // Linha 1
     doc.text(`Nome: ${sanitizeInput(data.prettyData.nome)}`, 20, 38);
-    doc.text(`Profissão: ${sanitizeInput(data.prettyData.profissao)}`, 20, 44);
-    doc.text(`Idade: ${sanitizeInput(data.prettyData.idade)}`, 20, 50);
-    doc.text(`E-mail: ${sanitizeInput(data.prettyData.email)}`, 20, 56);
+    doc.text(`Profissão: ${sanitizeInput(data.prettyData.profissao)}`, 110, 38);
+    
+    // Linha 2
+    doc.text(`Idade: ${sanitizeInput(data.prettyData.idade)}`, 20, 44);
+    doc.text(`E-mail: ${sanitizeInput(data.prettyData.email)}`, 110, 44);
+    
+    // Linha 3 - Resumo das Dimensões Analisadas
+    doc.setFont('helvetica', 'bold');
+    doc.text('Resumo das Dimensões Analisadas:', 20, 52);
+    doc.setFont('helvetica', 'normal');
+    
+    // Linha 4 - Pontuações na mesma linha
+    const pontuacoes = `Proativo: ${data.totals.B} pts (${data.pcts.B}%)   |   Reativo: ${data.totals.A} pts (${data.pcts.A}%)   |   Submisso: ${data.totals.C} pts (${data.pcts.C}%)`;
+    doc.text(pontuacoes, 20, 58);
     
     // Resultado Principal
     doc.setFont('helvetica', 'bold');
@@ -648,26 +661,17 @@
     doc.setTextColor(data.color[0], data.color[1], data.color[2]);
     doc.text(`Seu Perfil Predominante: ${data.behavior} (${data.pcts.Max}%)`, 20, 70);
     
-    // Pontuações
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(11);
-    doc.setTextColor(51, 65, 85);
-    doc.text('Resumo das Dimensões Analisadas:', 20, 80);
-    doc.text(`Proativo (Azul): ${data.totals.B} pontos (${data.pcts.B}%)`, 25, 87);
-    doc.text(`Reativo (Vermelho): ${data.totals.A} pontos (${data.pcts.A}%)`, 25, 93);
-    doc.text(`Submisso (Amarelo): ${data.totals.C} pontos (${data.pcts.C}%)`, 25, 99);
-    
-    // Gráfico Pie (Mantendo Proporção Quadrada para não esticar no PDF)
+    // Gráfico Pie MAIOR (Mantendo Proporção Quadrada para não esticar no PDF)
     if (data.chartImg) {
       try {
-        // Passar os mesmos valores de largura e altura (65 e 65) garante que não estica.
-        // O X=72 e Y=115 centralizam a imagem de 65x65 numa folha A4 (210 de largura)
-        doc.addImage(data.chartImg, 'PNG', 72, 115, 65, 65);
+        // Aumentando o tamanho do gráfico: 90x90
+        // O X=60 centraliza a imagem de 90x90 numa folha A4 (210 de largura)
+        doc.addImage(data.chartImg, 'PNG', 60, 75, 90, 90);
       } catch(e) { console.log(e); }
     }
 
     // Textos do Laudo Comportamental
-    let y = 198;
+    let y = 175; // Subiu o Y inicial para acomodar o gráfico maior
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(27, 94, 32);
