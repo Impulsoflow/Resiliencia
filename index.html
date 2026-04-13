@@ -429,108 +429,131 @@
       text-align: justify;
     }
 
-    /* ═══ GRÁFICO CORRIGIDO — CIRCULAR PERFEITO ═══ */
-    .chart-card {
-      background: #fff;
-      border: 1px solid rgba(207,230,255,.95);
-      border-radius: var(--radius2);
-      padding: 16px;
-      box-shadow: var(--shadow2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+
+
+  // ═══════════════════════════════════════════════════════════
+  // CÁLCULOS + GRÁFICO CIRCULAR PERFEITO
+  // ═══════════════════════════════════════════════════════════
+  function calculateResults() {
+    let totalA = 0, totalB = 0, totalC = 0;
+    answers.forEach((val, i) => {
+      const cat = QUESTIONS[i].cat;
+      if (cat === 'A') totalA += val;
+      if (cat === 'B') totalB += val;
+      if (cat === 'C') totalC += val;
+    });
+    const totalGeral = totalA + totalB + totalC;
+    const pctA = totalGeral > 0 ? ((totalA / totalGeral) * 100) : 0;
+    const pctB = totalGeral > 0 ? ((totalB / totalGeral) * 100) : 0;
+    const pctC = totalGeral > 0 ? ((totalC / totalGeral) * 100) : 0;
+
+    const maxScore = Math.max(totalA, totalB, totalC);
+    let behavior = '', colorHex = '', colorRgb = [], maxPct = 0;
+    if (totalB === maxScore) {
+      behavior = 'Proativo'; colorHex = '#1565C0'; colorRgb = [21,101,192]; maxPct = pctB.toFixed(1);
+    } else if (totalA === maxScore) {
+      behavior = 'Reativo'; colorHex = '#C62828'; colorRgb = [198,40,40]; maxPct = pctA.toFixed(1);
+    } else {
+      behavior = 'Submisso'; colorHex = '#F9A825'; colorRgb = [249,168,37]; maxPct = pctC.toFixed(1);
     }
-    .chart-wrapper {
-      width: 280px;
-      height: 280px;
-      position: relative;
-    }
-    @media (max-width: 380px) {
-      .chart-wrapper { width: 240px; height: 240px; }
-    }
 
-    .footer {
-      margin-top: 20px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      font-family: Arial, sans-serif;
-    }
-  </style>
-</head>
-<body>
-<div class="container">
-  <div class="wrap">
+    // Barras
+    document.getElementById("percentProativo").textContent = pctB.toFixed(1) + "%";
+    document.getElementById("barProativo").style.width = pctB.toFixed(1) + "%";
+    document.getElementById("percentReativo").textContent = pctA.toFixed(1) + "%";
+    document.getElementById("barReativo").style.width = pctA.toFixed(1) + "%";
+    document.getElementById("percentSubmisso").textContent = pctC.toFixed(1) + "%";
+    document.getElementById("barSubmisso").style.width = pctC.toFixed(1) + "%";
+    document.getElementById("totalProativo").textContent = totalB;
+    document.getElementById("totalReativo").textContent = totalA;
+    document.getElementById("totalSubmisso").textContent = totalC;
+    document.getElementById("totalGeral").textContent = totalGeral;
 
-    <div class="header">
-      <p class="main-title">Instituto Impulso Coaching de Liderança</p>
-      <p class="tagline">A mudança pode acontecer em um instante</p>
-      <h1 class="sub-title">Autodiagnóstico de Resiliência</h1>
-      <p class="header-desc">Descubra seu perfil comportamental diante das adversidades da vida pessoal e profissional.</p>
-    </div>
+    // Profile
+    document.getElementById("profile-name").textContent = "Perfil: " + behavior;
+    document.getElementById("profile-name").style.color = colorHex;
+    document.getElementById("profile-subtitle").textContent = behavior + " (" + maxPct + "%) — Comportamento Predominante";
 
-    <!-- ═══ STEP 1: INTRO ═══ -->
-    <section id="step-intro" class="step active">
-      <div class="instructions">
-        <p>Este instrumento científico avalia como você reage perante as dificuldades e adversidades da vida pessoal e profissional. O conceito de resiliência, originário da física e adaptado pela neurociência comportamental, descreve a capacidade de absorver impactos, adaptar-se e retornar ao equilíbrio — ou até superá-lo.</p>
-        <p>O autodiagnóstico mapeia três perfis comportamentais: <strong>Proativo</strong> (locus de controle interno), <strong>Reativo</strong> (resposta automática ao estímulo) e <strong>Submisso</strong> (aceitação passiva das circunstâncias). Cada perfil revela padrões neurológicos distintos que influenciam diretamente sua liderança e performance.</p>
-        <p style="margin-top:10px; color:#0b63ce;">
-          <strong style="font-family:Arial,sans-serif;">Instruções:</strong> Selecione a opção que melhor reflete seu comportamento <strong>atual e habitual</strong>. Responda com sinceridade absoluta — não existe resposta certa ou errada.
-        </p>
-      </div>
+    const descMap = {
+      Proativo: "Você demonstra forte capacidade de autorregulação emocional e tomada de decisão consciente. Seu córtex pré-frontal opera de forma predominante sobre o sistema límbico, permitindo respostas estratégicas.\n\nPontos Fortes: Foco na solução, auto-responsabilidade radical, inteligência emocional elevada e liderança servidora.\n\nPonto de Atenção: Risco de sobrecarga ao tentar resolver tudo sozinho. Exercite a delegação.",
+      Reativo: "Seu padrão indica predominância reativa, com respostas automáticas guiadas pelo sistema límbico (amígdala). Diante de adversidades, seu cérebro ativa circuitos de luta-ou-fuga com intensidade desproporcional.\n\nPontos Fortes: Forte senso de justiça, energia intensa e transparência nas intenções.\n\nPonto de Atenção: A hiperativação da amígdala pode 'sequestrar' o processo decisório. Invista em regulação emocional.",
+      Submisso: "Seu perfil indica predominância submissa, associada ao 'Desamparo Aprendido' (Seligman, 1967). O cérebro 'aprende' que qualquer esforço é inútil, ativando modo 'freeze'.\n\nPontos Fortes: Alta capacidade de escuta, empatia aflorada e habilidade de pacificar conflitos.\n\nPonto de Atenção: Risco de conformismo paralisante. Micro-decisões diárias reconectam circuitos de motivação."
+    };
+    document.getElementById("profile-desc").textContent = descMap[behavior] || "";
 
-      <div class="card" style="width:100%; max-width:720px; margin:0 auto; padding:32px 24px;">
-        <div class="grid-form">
-          <div class="form-group">
-            <label for="name">Nome Completo *</label>
-            <input type="text" id="name" autocomplete="name" placeholder="Ex: João Silva" />
-            <p id="name-error" class="error">Informe nome e sobrenome (mín. 5 caracteres).</p>
-          </div>
-          <div class="form-group">
-            <label for="whatsapp">WhatsApp *</label>
-            <input type="tel" id="whatsapp" placeholder="(00) 90000-0000" maxlength="15" />
-            <p id="whatsapp-error" class="error">WhatsApp inválido. Use (00) 90000-0000 com DDD.</p>
-          </div>
-          <div class="form-group">
-            <label for="email">E-mail Corporativo/Pessoal *</label>
-            <input type="email" id="email" autocomplete="email" placeholder="email@exemplo.com" />
-            <p id="email-error" class="error">E-mail inválido (ex: nome@empresa.com).</p>
-          </div>
-          <div class="form-group">
-            <label for="profession">Cargo / Profissão *</label>
-            <input type="text" id="profession" autocomplete="organization-title" placeholder="Ex: Diretor, Gerente" />
-            <p id="profession-error" class="error">Cargo ou profissão (mín. 3 caracteres).</p>
-          </div>
-          <div class="form-group">
-            <label for="age">Idade *</label>
-            <input type="text" id="age" maxlength="2" inputmode="numeric" placeholder="Ex: 35" />
-            <p id="age-error" class="error">Idade válida entre 16 e 99.</p>
-          </div>
-          <div class="form-group">
-            <label for="escolaridade">Escolaridade *</label>
-            <select id="escolaridade">
-              <option value="">Selecione...</option>
-              <option value="Ensino Médio Incompleto">Ensino Médio Incompleto</option>
-              <option value="Ensino Médio Completo">Ensino Médio Completo</option>
-              <option value="Ensino Superior Incompleto">Ensino Superior Incompleto</option>
-              <option value="Ensino Superior Completo">Ensino Superior Completo</option>
-              <option value="Pós-Graduação / MBA">Pós-Graduação / MBA</option>
-              <option value="Mestrado / Doutorado">Mestrado / Doutorado</option>
-            </select>
-            <p id="escolaridade-error" class="error">Selecione sua escolaridade.</p>
-          </div>
-        </div>
-        <div class="nav" style="justify-content:center; margin-top:32px;">
-          <button id="btn-start" class="btn btn-primary" type="button"
-            style="width:100%; max-width:320px; justify-content:center; padding:14px; font-size:16px;">
-            Iniciar Avaliação
-          </button>
-        </div>
-      </div>
-    </section>
+    // Salvar dados ANTES do gráfico
+    window._resilienciaData = {
+      prettyData: {
+        nome: document.getElementById("name").value,
+        whatsapp: document.getElementById("whatsapp").value,
+        email: document.getElementById("email").value,
+        profissao: document.getElementById("profession").value,
+        idade: document.getElementById("age").value,
+        escolaridade: document.getElementById("escolaridade").value
+      },
+      totals: { A: totalA, B: totalB, C: totalC },
+      pcts: { A: pctA.toFixed(1), B: pctB.toFixed(1), C: pctC.toFixed(1), Max: maxPct },
+      totalGeral, maxScore, behavior, colorHex, colorRgb, answers: [...answers]
+    };
 
+    // ═══ CRIAR GRÁFICO COM DELAY (esperar tela ficar visível) ═══
+    setTimeout(function() { createChart(pctB, pctA, pctC); }, 400);
+  }
+
+  function createChart(pctB, pctA, pctC) {
+    if (myChart) { myChart.destroy(); myChart = null; }
+    Chart.register(ChartDataLabels);
+
+    const canvas = document.getElementById("resultChart");
+    const wrapper = canvas.parentElement;
+
+    // Forçar dimensões quadradas no canvas
+    const size = Math.min(wrapper.clientWidth, wrapper.clientHeight) || 280;
+    canvas.style.width = size + "px";
+    canvas.style.height = size + "px";
+    canvas.width = size;
+    canvas.height = size;
+
+    const ctx = canvas.getContext("2d");
+    myChart = new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: ["Proativo", "Reativo", "Submisso"],
+        datasets: [{
+          data: [parseFloat(pctB.toFixed(1)), parseFloat(pctA.toFixed(1)), parseFloat(pctC.toFixed(1))],
+          backgroundColor: ["#1565C0", "#C62828", "#F9A825"],
+          borderColor: "#ffffff",
+          borderWidth: 3,
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: false,
+        maintainAspectRatio: true,
+        devicePixelRatio: 4,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: {
+              font: { family: "Arial", size: 13, weight: "600" },
+              color: "#334155", padding: 14, usePointStyle: true
+            }
+          },
+          datalabels: {
+            formatter: v => v > 0 ? v.toFixed(1) + "%" : "",
+            color: "#ffffff",
+            font: { weight: "bold", size: 15, family: "Arial" },
+            textShadowColor: "rgba(0,0,0,0.5)", textShadowBlur: 4
+          }
+        },
+        layout: { padding: 10 },
+        animation: { duration: 800 }
+      }
+    });
+  }
+    
+   
+    
     <!-- ═══ STEP 2: QUIZ ═══ -->
     <section id="step-quiz" class="step">
       <div class="topbar">
