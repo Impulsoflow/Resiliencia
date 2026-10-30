@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Autodiagnóstico de Resiliência - Instituto Impulso Coaching de Liderança</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+  <title>Resiliência — Atividade educativa | Instituto IMPULSO</title>
+  <script src="https://impulso-resiliencia-aula.impulsoflow-f91.workers.dev/assets/vendor/jspdf.umd.min.js"></script>
+  <script src="https://impulso-resiliencia-aula.impulsoflow-f91.workers.dev/assets/vendor/chart.umd.min.js"></script>
+  <script src="https://impulso-resiliencia-aula.impulsoflow-f91.workers.dev/assets/vendor/chartjs-plugin-datalabels.min.js"></script>
+  <script src="https://impulso-resiliencia-aula.impulsoflow-f91.workers.dev/assets/vendor/purify.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -466,24 +466,33 @@
       font-weight: 700;
       font-family: Arial, sans-serif;
     }
-  </style>
+    .imp-original-brand{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}
+  .imp-original-brand img{object-fit:contain;border-radius:12px;background:white;padding:4px}
+  .imp-aula-consent{font:500 13px/1.6 Arial,sans-serif;color:#27486b;padding:14px;background:#f0f7ff;border:1px solid #c7dff4;border-radius:12px;margin-top:18px}
+  .imp-aula-consent label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+  .imp-aula-consent input{width:18px;height:18px;flex:none;margin-top:2px}
+  .imp-report-actions{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+  .imp-report-actions button{min-height:46px;padding:12px 17px}
+  .imp-report-disclaimer{font:500 12px/1.55 Arial,sans-serif;color:#526b84;text-align:center;max-width:620px;margin:13px auto 0}
+  @media(max-width:640px){.imp-report-actions{flex-direction:column}.imp-report-actions button{width:100%}}
+</style>
 </head>
 <body>
 <div class="container">
   <div class="wrap">
 
     <div class="header">
-      <p class="main-title">Instituto Impulso Coaching de Liderança</p>
+      <div class="imp-original-brand"><img src="https://impulso-resiliencia-aula.impulsoflow-f91.workers.dev/logo-impulso-oficial.png" alt="Símbolo original do Instituto IMPULSO" width="68" height="68"/><p class="main-title">Instituto Impulso Coaching de Liderança</p></div>
       <p class="tagline">A mudança pode acontecer em um instante</p>
-      <h1 class="sub-title">Autodiagnóstico de Resiliência</h1>
-      <p class="header-desc">Descubra seu perfil comportamental diante das adversidades da vida pessoal e profissional.</p>
+      <h1 class="sub-title">Resiliência — Autopercepção para a aula</h1>
+      <p class="header-desc">30 perguntas, reflexão individual e relatório em PDF para baixar ao concluir.</p>
     </div>
 
     <!-- ═══ STEP 1: INTRO ═══ -->
     <section id="step-intro" class="step active">
       <div class="instructions">
-        <p>Este instrumento científico avalia como você reage perante as dificuldades e adversidades da vida pessoal e profissional. O conceito de resiliência, originário da física e adaptado pela neurociência comportamental, descreve a capacidade de absorver impactos, adaptar-se e retornar ao equilíbrio — ou até superá-lo.</p>
-        <p>O autodiagnóstico mapeia três perfis comportamentais: <strong>Proativo</strong> (locus de controle interno), <strong>Reativo</strong> (resposta automática ao estímulo) e <strong>Submisso</strong> (aceitação passiva das circunstâncias). Cada perfil revela padrões neurológicos distintos que influenciam diretamente sua liderança e performance.</p>
+        <p>Esta atividade educativa de autorreflexão explora como você costuma responder a dificuldades no cotidiano. Ela ajuda a conversar sobre adaptação, escolhas e desenvolvimento pessoal, mas não é diagnóstico clínico nem uma medida psicométrica validada de resiliência.</p>
+        <p>As 30 afirmações estão organizadas em três conjuntos didáticos: <strong>Proativo</strong>, <strong>Reativo</strong> e <strong>Submisso</strong>. A distribuição de respostas representa apenas este questionário e não permite inferir funcionamento cerebral, habilidades clínicas ou traços fixos da personalidade.</p>
         <p style="margin-top:10px; color:#0b63ce;">
           <strong style="font-family:Arial,sans-serif;">Instruções:</strong> Selecione a opção que melhor reflete seu comportamento <strong>atual e habitual</strong>. Responda com sinceridade absoluta — não existe resposta certa ou errada. Não responda como gostaria de ser, mas como você realmente é hoje.
         </p>
@@ -530,6 +539,7 @@
             <p id="escolaridade-error" class="error">Selecione sua escolaridade.</p>
           </div>
         </div>
+        <div class="imp-aula-consent"><label><input type="checkbox" id="privacy-consent"/> Li e compreendi que esta atividade é educativa e autorizo o uso dos dados que forneci para gerar meu relatório. O serviço externo de envio por e-mail pode ficar indisponível; nesse caso, o PDF poderá ser baixado nesta página.</label><p id="privacy-consent-error" class="error" role="alert" style="display:none">Confirme o consentimento para iniciar a atividade.</p></div>
         <div class="nav" style="justify-content:center; margin-top:32px;">
           <button id="btn-start" class="btn btn-primary" type="button"
             style="width:100%; max-width:320px; justify-content:center; padding:14px; font-size:16px;">
@@ -562,8 +572,13 @@
     <!-- ═══ STEP 3: RESULTADOS ═══ -->
     <section id="step-results" class="step">
       <div class="result-hero">
-        <h2 id="result-title">Seu Perfil de Resiliência</h2>
-        <p id="auto-send-status" style="font-family:Arial,sans-serif; font-weight:bold; color:#0b63ce; min-height:22px;"></p>
+        <h2 id="result-title">Seu Mapa de Autopercepção</h2>
+        <p id="auto-send-status" aria-live="polite" style="font-family:Arial,sans-serif; font-weight:bold; color:#0b63ce; min-height:22px;"></p>
+        <div class="imp-report-actions" role="group" aria-label="Ações do relatório de resiliência">
+          <button id="download-report" type="button" class="btn btn-primary" disabled>Baixar relatório PDF</button>
+          <button id="retry-send" type="button" class="btn btn-ghost" style="display:none">Tentar envio por e-mail novamente</button>
+        </div>
+        <p class="imp-report-disclaimer">O PDF fica disponível para download ao concluir. O envio por e-mail pode falhar; não feche a página sem salvar o arquivo. Resultados são descritivos e não substituem avaliação profissional.</p>
         <div id="final-success-message"
              style="margin-top:14px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.4);
                     padding:16px; border-radius:12px; text-align:center; display:none;">
@@ -571,8 +586,8 @@
             ✅ Relatório Gerado!
           </p>
           <p style="margin:6px 0 0; font-size:14px; color:#047857;">
-            Seu resultado completo em PDF foi enviado para seu e-mail.<br>
-            Equipe Instituto Impulso notificada.
+            Seu resultado foi gerado. Baixe e guarde o PDF abaixo.
+            A entrega por e-mail depende de confirmação do serviço externo.
           </p>
         </div>
       </div>
@@ -622,15 +637,15 @@
         <div>
           <div class="result-box" style="border-left:6px solid var(--color-proativo);">
             <h3 style="color:var(--color-proativo);">🔵 Perfil Proativo — Locus de Controle Interno</h3>
-            <p>Assume o protagonismo de suas reações. Foco na solução, auto-responsabilidade e inteligência emocional elevada. Ativa predominantemente o córtex pré-frontal.</p>
+            <p>Assume o protagonismo de suas reações. Foco na solução, auto-responsabilidade e inteligência emocional elevada. As respostas podem indicar preferência por ações planejadas.</p>
           </div>
           <div class="result-box" style="margin-top:10px; border-left:6px solid var(--color-reativo);">
             <h3 style="color:var(--color-reativo);">🔴 Perfil Reativo — Resposta Automática ao Estímulo</h3>
-            <p>Respostas automáticas guiadas pela emoção imediata. Forte senso de justiça e energia intensa. Hiperativação da amígdala cerebral.</p>
+            <p>Respostas automáticas guiadas pela emoção imediata. Forte senso de justiça e energia intensa. Pode envolver reações rápidas que merecem reflexão.</p>
           </div>
           <div class="result-box" style="margin-top:10px; border-left:6px solid var(--color-submisso);">
             <h3 style="color:var(--color-submisso);">🟡 Perfil Submisso — Aceitação Passiva</h3>
-            <p>Aceitação passiva das dificuldades. Alta capacidade de escuta e empatia. Padrão de "desamparo aprendido" (Seligman, 1967).</p>
+            <p>Aceitação passiva das dificuldades. Alta capacidade de escuta e empatia. Pode refletir dificuldades de iniciativa em algumas situações.</p>
           </div>
           <div class="chart-card" style="margin-top:10px;">
             <canvas id="resultChart"></canvas>
@@ -663,6 +678,20 @@
   const MAX_EMAIL_ATTEMPTS = 3;
   const MAX_PDF_BASE64 = 8500000;
   let autoSendInProgress = false, autoSendDone = false, emailSendAttempts = 0;
+  let lastReportDoc = null;
+  function enablePdfDownload(doc){
+    lastReportDoc=doc;
+    const button=document.getElementById("download-report");
+    button.disabled=false;
+    document.getElementById("final-success-message").style.display="block";
+    setStatus("Relatório pronto: baixe o PDF e guarde uma cópia.","success");
+  }
+  document.getElementById("download-report").addEventListener("click",()=>{
+    if(!lastReportDoc)return;
+    const safe=(document.getElementById("name").value||"participante").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9_-]+/g,"-").slice(0,45);
+    lastReportDoc.save("IMPULSO-Resiliencia-"+safe+".pdf");
+  });
+  document.getElementById("retry-send").addEventListener("click",()=>{if(!autoSendInProgress&&!autoSendDone)void autoSendResults();});
   let myChart = null;
 
   // ═══════════════════════════════════════════════════════════
@@ -702,7 +731,7 @@
     if (!response.ok) throw new Error("HTTP " + response.status);
     let data;
     try { data = JSON.parse(text); } catch (e) { throw new Error("Resposta inválida"); }
-    if (data.ok === false) throw new Error(data.message || "Erro servidor.");
+    if (data.ok !== true) throw new Error(data.message || "Envio não confirmado pelo serviço.");
     return data;
   }
 
@@ -806,6 +835,10 @@
       else { el.classList.add("input-error"); if (!firstErr) firstErr = el; valid = false; }
     });
 
+    const consent=document.getElementById("privacy-consent");
+    const consentError=document.getElementById("privacy-consent-error");
+    if(!consent.checked){consentError.style.display="block";valid=false; if(!firstErr)firstErr=consent;}
+    else consentError.style.display="none";
     if (!valid) { if (firstErr) firstErr.focus(); return; }
     answers = new Array(TOTAL_Q).fill(null);
     currentQ = 0;
@@ -892,7 +925,9 @@
     const maxScore = Math.max(totalA, totalB, totalC);
     let behavior = '', colorHex = '', colorRgb = [], maxPct = 0;
 
-    if (totalB === maxScore) {
+    if (maxScore===0 || [totalA,totalB,totalC].filter(v=>v===maxScore).length>1) {
+      behavior = 'Sem predominância'; colorHex = '#476887'; colorRgb = [71,104,135]; maxPct = totalGeral>0?((maxScore/totalGeral)*100).toFixed(1):'0.0';
+    } else if (totalB === maxScore) {
       behavior = 'Proativo'; colorHex = '#1565C0'; colorRgb = [21,101,192]; maxPct = pctB.toFixed(1);
     } else if (totalA === maxScore) {
       behavior = 'Reativo'; colorHex = '#C62828'; colorRgb = [198,40,40]; maxPct = pctA.toFixed(1);
@@ -920,9 +955,10 @@
     document.getElementById("profile-subtitle").textContent = behavior + " (" + maxPct + "%) — Comportamento Predominante";
 
     const descMap = {
-      Proativo: "Você demonstra forte capacidade de autorregulação emocional e tomada de decisão consciente. Seu córtex pré-frontal opera de forma predominante sobre o sistema límbico, permitindo respostas estratégicas ao invés de reativas.\n\nPontos Fortes: Foco na solução, auto-responsabilidade radical, inteligência emocional elevada e forte perfil de liderança servidora.\n\nPonto de Atenção: Risco de sobrecarga ao tentar resolver tudo sozinho. Exercite a delegação para sustentabilidade de longo prazo.",
-      Reativo: "Seu padrão comportamental indica predominância reativa, com respostas automáticas guiadas pelo sistema límbico (amígdala cerebral). Diante de adversidades, seu cérebro tende a ativar circuitos de luta-ou-fuga com intensidade desproporcional.\n\nPontos Fortes: Forte senso de justiça, energia intensa e transparência nas intenções.\n\nPonto de Atenção: A hiperativação da amígdala pode 'sequestrar' o processo decisório. Invista em técnicas de regulação emocional.",
-      Submisso: "Seu perfil indica predominância submissa, associada ao conceito de 'Desamparo Aprendido' (Seligman, 1967). O cérebro 'aprende' que qualquer esforço é inútil, ativando o sistema parassimpático em modo 'freeze'.\n\nPontos Fortes: Alta capacidade de escuta, empatia aflorada e habilidade de pacificar conflitos.\n\nPonto de Atenção: Risco de conformismo paralisante. Exercitar micro-decisões diárias pode reconectar os circuitos de motivação."
+      Proativo: "Nesta atividade, suas respostas foram mais frequentes no conjunto Proativo. Reflita sobre como planeja ações, busca soluções e se responsabiliza pelas escolhas. Este resultado não diagnostica capacidades emocionais nem mede atividade cerebral.",
+      Reativo: "Nesta atividade, suas respostas foram mais frequentes no conjunto Reativo. Observe quando reage imediatamente e quando pode fazer uma pausa antes de decidir. O resultado descreve apenas este conjunto de itens.",
+      Submisso: "Nesta atividade, suas respostas foram mais frequentes no conjunto Submisso. Reflita sobre situações em que evita conflitos ou decisões e sobre passos pequenos que ajudam a ampliar sua iniciativa. O rótulo não define sua personalidade.",
+      "Sem predominância": "Seus resultados não apontaram um conjunto único predominante. Isso é esperado quando há pontuações iguais ou nenhuma pontuação. Compare as situações e escolha uma ação prática para desenvolver."
     };
     document.getElementById("profile-desc").textContent = descMap[behavior] || "";
 
@@ -993,9 +1029,19 @@
     setStatus("⏳ Gerando laudo e enviando...", "info");
     try {
       await wait(1500);
-      const doc = await buildPdfDoc();
+      const doc = lastReportDoc || await buildPdfDoc();
+      enablePdfDownload(doc); // O PDF é local e independente do envio externo.
+      if (String(document.getElementById("email").value).toLowerCase().endsWith(".invalid")) {
+        setStatus("Teste técnico: relatório pronto para baixar. O envio por e-mail foi intencionalmente desativado.","success");
+        return;
+      }
       const b64Full = doc.output("datauristring").split(",")[1];
-      const pb64 = b64Full.length > MAX_PDF_BASE64 ? b64Full.substring(0, MAX_PDF_BASE64) : b64Full;
+      if(!b64Full||b64Full.length>MAX_PDF_BASE64){
+        setStatus("PDF pronto para baixar. O arquivo é grande demais para o envio por e-mail.","info");
+        document.getElementById("retry-send").style.display="none";
+        return;
+      }
+      const pb64 = b64Full;
       const data = window._resilienciaData;
       const payload = {
         apiKey: API_KEY, pesquisa: "Autodiagnóstico de Resiliência",
@@ -1013,10 +1059,13 @@
         try { await postResultToScript(payload); sent = true; }
         catch (e) { console.warn("Tentativa " + emailSendAttempts + " falhou:", e.message); if (emailSendAttempts < MAX_EMAIL_ATTEMPTS) await wait(3000); }
       }
-      if (sent) { setStatus("", ""); document.getElementById("final-success-message").style.display = "block"; autoSendDone = true; }
-      else { setStatus("Não foi possível enviar automaticamente.", "error"); }
-    } catch (e) { console.error(e); setStatus("Erro no processamento.", "error"); }
-    autoSendInProgress = false;
+      if(sent){setStatus("PDF pronto. O serviço externo recebeu a solicitação de envio; confira sua caixa de entrada. Faça também o download.","success");autoSendDone=true;}
+      else{setStatus("PDF pronto para baixar. O envio por e-mail não foi confirmado; você pode tentar novamente.","error");document.getElementById("retry-send").style.display="inline-flex";}
+    } catch (e) {
+      console.error("Falha na geração ou envio",e);
+      setStatus(lastReportDoc?"PDF pronto para baixar. Entrega externa indisponível.":"Não foi possível gerar o PDF. Não feche esta página; tente novamente.","error");
+      document.getElementById("retry-send").style.display="inline-flex";
+    } finally {autoSendInProgress = false;}
   }
 
   // ═══════════════════════════════════════════════════════════
@@ -1230,7 +1279,7 @@
     doc.setFont("helvetica", "normal"); doc.setFontSize(15); doc.setTextColor(80, 80, 80);
     doc.text("Resultado da Pesquisa", pageW / 2, 102, { align: "center" });
     doc.setFont("helvetica", "bold"); doc.setFontSize(22); doc.setTextColor(11, 99, 206);
-    doc.text("Autodiagnóstico de Resiliência", pageW / 2, 114, { align: "center" });
+    doc.text("Autopercepção de Resiliência", pageW / 2, 114, { align: "center" });
 
     // Símbolo de Resiliência (substitui o relógio da Gestão no Tempo)
     drawResilienceSymbol(doc, pageW / 2, 175, 1.4);
@@ -1255,13 +1304,14 @@
     addDataRow("E-mail", sanitize(data.prettyData.email).toLowerCase(), "WhatsApp", sanitize(data.prettyData.whatsapp));
     y += 8;
 
-    addSectionTitle("2. Mapeamento de Resiliência");
+    addSectionTitle("2. Distribuição das Respostas");
     addProgressBar("Proativo (Locus Interno)", parseFloat(data.pcts.B), [21, 101, 192]);
     addProgressBar("Reativo (Resposta Automática)", parseFloat(data.pcts.A), [198, 40, 40]);
     addProgressBar("Submisso (Aceitação Passiva)", parseFloat(data.pcts.C), [249, 168, 37]);
     y += 2;
     doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(11, 42, 82);
     doc.text("Pontuação Total: " + data.totalGeral + " pts", margin, y); y += 6;
+    addParagraph("Atividade didática de autorreflexão; percentuais representam a proporção dos pontos neste questionário. Não são escores clínicos nem indicadores validados de saúde mental.",8.5,4.5);
 
     doc.setFillColor(240, 245, 255); doc.setDrawColor(pc[0], pc[1], pc[2]); doc.setLineWidth(1);
     doc.roundedRect(margin, y, contentW, 10, 3, 3, "FD");
@@ -1271,16 +1321,17 @@
     // ════════════════════════════════════════════════════════
     // 3. DIAGNÓSTICO
     // ════════════════════════════════════════════════════════
-    addSectionTitle("3. Diagnóstico Comportamental");
+    addSectionTitle("3. Leitura dos Resultados");
     doc.setFont("helvetica", "bold"); doc.setFontSize(13);
     doc.setTextColor(pc[0], pc[1], pc[2]);
     newPageIfNeeded(8);
     doc.text("Perfil Encontrado: " + data.behavior, margin, y); y += 6;
 
     const diagnosticos = {
-      Proativo: "Você demonstra um padrão comportamental predominantemente proativo, o que indica forte capacidade de autorregulação emocional e tomada de decisão consciente. Segundo Martin Seligman (Universidade da Pensilvânia), este perfil está associado ao 'Otimismo Aprendido' — a habilidade neurológica de reinterpretar adversidades como temporárias e modificáveis. Seu córtex pré-frontal opera de forma predominante sobre o sistema límbico, permitindo respostas estratégicas ao invés de reativas.\n\nPontos Fortes: Foco implacável na solução, auto-responsabilidade, inteligência emocional elevada e forte perfil de liderança servidora.\n\nPonto de Atenção: Risco de sobrecarga ao tentar resolver tudo sozinho. Pesquisas da Harvard Business Review (2019) indicam que líderes proativos precisam exercitar a delegação para sustentabilidade de longo prazo.",
-      Reativo: "Seu padrão comportamental indica predominância reativa, caracterizada por respostas automáticas guiadas pelo sistema límbico (amígdala cerebral). Daniel Kahneman (Nobel, 2002) classifica este padrão como 'Sistema 1' de pensamento — rápido, intuitivo e emocional. Diante de adversidades, seu cérebro tende a ativar circuitos de luta-ou-fuga com intensidade desproporcional ao estímulo real.\n\nPontos Fortes: Forte senso de justiça, energia intensa e transparência nas intenções. Se bem direcionada por coaching estruturado, esta energia pode gerar grandes transformações.\n\nPonto de Atenção: A hiperativação da amígdala pode 'sequestrar' o processo decisório. Investir em técnicas de regulação emocional (mindfulness, respiração diafragmática) pode fortalecer as conexões com o córtex pré-frontal.",
-      Submisso: "Seu perfil indica predominância submissa, associada ao conceito de 'Desamparo Aprendido' descrito por Martin Seligman (1967). Após exposição repetida a situações percebidas como incontroláveis, o cérebro 'aprende' que qualquer esforço é inútil, ativando o sistema parassimpático em modo 'freeze' (congelamento).\n\nViktor Frankl, sobrevivente do Holocausto e criador da Logoterapia, demonstrou que mesmo nas condições mais extremas, o ser humano pode escolher sua atitude — o que representa uma poderosa chave de desenvolvimento para este perfil.\n\nPontos Fortes: Alta capacidade de escuta, empatia aflorada e habilidade de pacificar conflitos.\n\nPonto de Atenção: Risco de conformismo paralisante e estagnação. Exercitar micro-decisões diárias pode reconectar os circuitos dopaminérgicos de motivação intrínseca."
+      Proativo: "Seu maior agrupamento nesta atividade foi o Proativo. Você pode refletir sobre planejamento, colaboração e protagonismo em situações difíceis. Uma sugestão prática é registrar um desafio atual e duas ações possíveis. Esta leitura é educativa e não representa diagnóstico clínico nem inferência neurocientífica.",
+      Reativo: "Seu maior agrupamento nesta atividade foi o Reativo. Reflita sobre situações em que emoções rápidas influenciam suas escolhas e sobre como criar uma pausa antes da resposta. Uma sugestão prática é identificar um gatilho, nomear a emoção e definir uma ação consciente. Esta leitura é educativa.",
+      Submisso: "Seu maior agrupamento nesta atividade foi o Submisso. Reflita sobre quando cede espaço às escolhas de terceiros e sobre situações nas quais pode manifestar sua opinião com respeito. Uma sugestão prática é escolher uma pequena decisão que depende de você. Esta leitura é educativa.",
+      "Sem predominância": "Não houve predominância única entre os três conjuntos de respostas. Em uma atividade de reflexão, isso não indica defeito ou diagnóstico: use as perguntas para identificar possibilidades de mudança e discutir exemplos concretos."
     };
     addParagraph(diagnosticos[data.behavior] || "Perfil em análise.", 9.5, 5);
 
@@ -1288,26 +1339,13 @@
     // 4. LAUDO DOS 3 PERFIS
     // ════════════════════════════════════════════════════════
     forceNewPage();
-    addSectionTitle("4. Laudo Comportamental dos 3 Perfis");
+    addSectionTitle("4. Três Conjuntos de Respostas");
 
     const laudos = [
-      {
-        title: "PERFIL PROATIVO — LOCUS DE CONTROLE INTERNO",
-        color: [21, 101, 192],
-        text: "Indivíduos com predominância proativa assumem o protagonismo de suas vidas. Possuem um Locus de Controle Interno (Julian Rotter, 1966), entendendo que têm domínio sobre como responder aos eventos. A neurociência comprova que este padrão ativa predominantemente o córtex pré-frontal — região responsável pelo planejamento estratégico e regulação emocional.\n\nPontos Fortes: Foco na solução, auto-responsabilidade radical, inteligência emocional elevada (Daniel Goleman), flexibilidade adaptativa e facilidade em transformar crises em oportunidades.\n\nPonto de Atenção: Risco de sobrecarga física e mental. Precisam exercitar delegação estratégica e trabalho em equipe.\n\nBase Neurológica: Predominância do córtex pré-frontal dorsolateral e sistema de recompensa (dopamina)."
-      },
-      {
-        title: "PERFIL REATIVO — RESPOSTA AUTOMÁTICA AO ESTÍMULO",
-        color: [198, 40, 40],
-        text: "Pessoas reativas respondem aos estímulos de forma automática, movidas pela emoção imediata. Daniel Kahneman classifica como 'Sistema 1': rápido, intuitivo e emocional. Diante de falhas, buscam justificativas ou culpados externos. Albert Ellis (Terapia Racional-Emotiva) demonstra que este padrão está enraizado em crenças irracionais que magnificam eventos negativos.\n\nPontos Fortes: Senso de justiça, defesa apaixonada de ideais, transparência e energia intensa que pode impulsionar grandes realizações.\n\nPonto de Atenção: Desperdício de energia em reclamações; risco de deterioração de relacionamentos pela transferência de responsabilidades.\n\nBase Neurológica: Hiperativação da amígdala com sub-ativação do córtex pré-frontal — respostas de luta-ou-fuga desproporcionais."
-      },
-      {
-        title: "PERFIL SUBMISSO — ACEITAÇÃO PASSIVA DAS CIRCUNSTÂNCIAS",
-        color: [249, 168, 37],
-        text: "Caracterizado pela aceitação passiva. O conceito de 'Desamparo Aprendido' (Seligman, 1967) explica: após exposição repetida a situações incontroláveis, o cérebro 'aprende' que qualquer esforço é inútil. Terceiriza o controle para fatores externos. Viktor Frankl demonstrou que mesmo em condições extremas, o ser humano pode escolher sua atitude.\n\nPontos Fortes: Alta capacidade de suporte e escuta ativa, resiliência pacífica, empatia aflorada e facilidade em pacificar conflitos.\n\nPonto de Atenção: Conformismo paralisante, estagnação e vitimização inconsciente — classificado pela Análise Transacional (Eric Berne) como 'jogo psicológico' de dependência.\n\nBase Neurológica: Sistema parassimpático em modo 'freeze', baixa ativação dopaminérgica e serotonérgica."
-      }
+      {title:"CONJUNTO PROATIVO — AÇÃO E PLANEJAMENTO",color:[21,101,192],text:"Reúne afirmações sobre análise, tomada de decisão e busca de soluções. Uma prática útil é listar um problema concreto e as alternativas que estão ao seu alcance. Esta categoria não corresponde diretamente a uma estrutura cerebral ou a uma medida validada de resiliência."},
+      {title:"CONJUNTO REATIVO — RESPOSTAS IMEDIATAS",color:[198,40,40],text:"Reúne afirmações sobre exigência, assertividade e reação diante de dificuldades. Uma prática útil é perceber quais emoções aparecem primeiro e o que muda quando você considera outra resposta. Não é possível inferir estado neurológico a partir deste questionário."},
+      {title:"CONJUNTO SUBMISSO — ADAPTAÇÃO E INICIATIVA",color:[249,168,37],text:"Reúne afirmações sobre acomodação, escuta e adiamento de decisões. Uma prática útil é observar quando a flexibilidade é uma força e quando você gostaria de expressar uma necessidade ou preferência com mais clareza. A categoria não é rótulo clínico."}
     ];
-
     laudos.forEach(l => {
       newPageIfNeeded(40);
       doc.setFillColor(l.color[0], l.color[1], l.color[2]);
@@ -1349,6 +1387,7 @@
     // ════════════════════════════════════════════════════════
     // RODAPÉ TODAS AS PÁGINAS
     // ════════════════════════════════════════════════════════
+    // Aviso metodológico em todas as páginas de resultados; sem alegações de validação clínica.
     const totalPages = doc.internal.getNumberOfPages();
     for (let p = 2; p <= totalPages; p++) {
       doc.setPage(p);
