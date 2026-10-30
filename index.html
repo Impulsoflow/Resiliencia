@@ -578,6 +578,8 @@
           <button id="download-report" type="button" class="btn btn-primary" disabled>Baixar relatório PDF</button>
           <button id="retry-send" type="button" class="btn btn-ghost" style="display:none">Tentar envio por e-mail novamente</button>
         </div>
+        <p id="portal-pdf-status" role="status" style="font:700 13px/1.5 Arial,sans-serif;color:#194b74;text-align:center;"></p>
+        <div style="text-align:center"><button id="retry-central-pdf" type="button" class="btn btn-ghost" style="display:none">Salvar PDF na minha conta IMPULSO</button></div>
         <p class="imp-report-disclaimer">O PDF fica disponível para download ao concluir. O envio por e-mail pode falhar; não feche a página sem salvar o arquivo. Resultados são descritivos e não substituem avaliação profissional.</p>
         <div id="final-success-message"
              style="margin-top:14px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.4);
@@ -683,7 +685,9 @@
     lastReportDoc=doc;
     if(window.ImpulsoAccountBridge?.active){
       // O PDF foi gerado localmente: registrar apenas recibo pendente.
-      void window.ImpulsoAccountBridge.reportSaved(false);
+      // O recibo e o arquivo serão persistidos juntos pela rotina de sincronização abaixo.
+      // Não marcar conclusão com apenas um recibo sem PDF.
+
     }
     const button=document.getElementById("download-report");
     button.disabled=false;
@@ -695,6 +699,25 @@
     const safe=(document.getElementById("name").value||"participante").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9_-]+/g,"-").slice(0,45);
     lastReportDoc.save("IMPULSO-Resiliencia-"+safe+".pdf");
   });
+  async function archivePdfInCentral(){
+    const bridge=window.ImpulsoAccountBridge;
+    if(!bridge?.active||!lastReportDoc)return;
+    const status=document.getElementById("portal-pdf-status");
+    const retry=document.getElementById("retry-central-pdf");
+    status.textContent="Arquivando seu PDF na conta IMPULSO…";
+    retry.style.display="none";
+    try{
+      const encoded=lastReportDoc.output("datauristring").split(",")[1];
+      const receipt=await bridge.saveReportPdf(encoded);
+      if(!receipt?.pdfAvailable)throw Error("A Central ainda não confirmou o arquivo.");
+      status.textContent="PDF arquivado na sua conta IMPULSO. Disponível em Meus relatórios.";
+    }catch(error){
+      console.warn("IMPULSO: arquivo para conferência",error instanceof Error?error.name:"erro");
+      status.textContent="PDF gerado, mas ainda não arquivado na Central. Baixe uma cópia e tente salvar novamente abaixo.";
+      retry.style.display="inline-flex";
+    }
+  }
+  document.getElementById("retry-central-pdf").addEventListener("click",()=>{void archivePdfInCentral();});
   document.getElementById("retry-send").addEventListener("click",()=>{if(!autoSendInProgress&&!autoSendDone)void autoSendResults();});
   let myChart = null;
 
@@ -1045,7 +1068,8 @@
     try {
       await wait(1500);
       const doc = lastReportDoc || await buildPdfDoc();
-      enablePdfDownload(doc); // O PDF é local e independente do envio externo.
+      enablePdfDownload(doc); // PDF local sempre disponível, mesmo se a Central falhar.
+      if(window.ImpulsoAccountBridge?.active)await archivePdfInCentral();
       if (String(document.getElementById("email").value).toLowerCase().endsWith(".invalid")) {
         setStatus("Teste técnico: relatório pronto para baixar. O envio por e-mail foi intencionalmente desativado.","success");
         return;
