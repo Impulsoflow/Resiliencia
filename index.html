@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resiliência — Atividade educativa | Instituto IMPULSO</title>
+  <title>Resiliência | Instituto IMPULSO</title>
   <script src="https://impulso-resiliencia-aula.impulsoflow-f91.workers.dev/assets/vendor/jspdf.umd.min.js"></script>
   <script src="https://impulso-resiliencia-aula.impulsoflow-f91.workers.dev/assets/vendor/chart.umd.min.js"></script>
   <script src="https://impulso-resiliencia-aula.impulsoflow-f91.workers.dev/assets/vendor/chartjs-plugin-datalabels.min.js"></script>
@@ -484,7 +484,7 @@
     <div class="header">
       <div class="imp-original-brand"><img src="https://impulso-resiliencia-aula.impulsoflow-f91.workers.dev/logo-impulso-oficial.png" alt="Símbolo original do Instituto IMPULSO" width="68" height="68"/><p class="main-title">Instituto Impulso Coaching de Liderança</p></div>
       <p class="tagline">A mudança pode acontecer em um instante</p>
-      <h1 class="sub-title">Resiliência — Autopercepção para a aula</h1>
+      <h1 class="sub-title">Resiliência</h1>
       <p class="header-desc">30 perguntas, reflexão individual e relatório em PDF para baixar ao concluir.</p>
     </div>
 
@@ -572,7 +572,7 @@
     <!-- ═══ STEP 3: RESULTADOS ═══ -->
     <section id="step-results" class="step">
       <div class="result-hero">
-        <h2 id="result-title">Seu Mapa de Autopercepção</h2>
+        <h2 id="result-title">Seu Resultado de Resiliência</h2>
         <p id="auto-send-status" aria-live="polite" style="font-family:Arial,sans-serif; font-weight:bold; color:#0b63ce; min-height:22px;"></p>
         <div class="imp-report-actions" role="group" aria-label="Ações do relatório de resiliência">
           <button id="download-report" type="button" class="btn btn-primary" disabled>Baixar relatório PDF</button>
@@ -681,6 +681,10 @@
   let lastReportDoc = null;
   function enablePdfDownload(doc){
     lastReportDoc=doc;
+    if(window.ImpulsoAccountBridge?.active){
+      // O PDF foi gerado localmente: registrar apenas recibo pendente.
+      void window.ImpulsoAccountBridge.reportSaved(false);
+    }
     const button=document.getElementById("download-report");
     button.disabled=false;
     document.getElementById("final-success-message").style.display="block";
@@ -817,7 +821,7 @@
   // ═══════════════════════════════════════════════════════════
   // VALIDAÇÃO COMPLETA
   // ═══════════════════════════════════════════════════════════
-  document.getElementById("btn-start").addEventListener("click", function () {
+  document.getElementById("btn-start").addEventListener("click", async function () {
     let valid = true, firstErr = null;
     const fields = [
       { id: "name", err: "name-error", check: v => { const t = v.trim(); return t.length >= 5 && t.includes(" ") && !/\d/.test(t); } },
@@ -840,6 +844,17 @@
     if(!consent.checked){consentError.style.display="block";valid=false; if(!firstErr)firstErr=consent;}
     else consentError.style.display="none";
     if (!valid) { if (firstErr) firstErr.focus(); return; }
+    if(window.ImpulsoAccountBridge?.active){
+      const btn=document.getElementById("btn-start");
+      if(!window.ImpulsoAccountBridge.started){
+        btn.disabled=true;
+        try{await window.ImpulsoAccountBridge.start();}
+        catch(error){
+          alert("Não foi possível iniciar com a autorização da sua conta IMPULSO. Volte à sua conta e tente novamente. " + (error?.message||""));
+          return;
+        }finally{btn.disabled=false;}
+      }else return; // Não iniciar duas vezes usando a mesma autorização.
+    }
     answers = new Array(TOTAL_Q).fill(null);
     currentQ = 0;
     showStep(stepQuiz);
@@ -1026,7 +1041,7 @@
   async function autoSendResults() {
     if (autoSendInProgress || autoSendDone) return;
     autoSendInProgress = true;
-    setStatus("⏳ Gerando laudo e enviando...", "info");
+    setStatus("Gerando seu relatório e verificando a entrega...", "info");
     try {
       await wait(1500);
       const doc = lastReportDoc || await buildPdfDoc();
@@ -1279,7 +1294,7 @@
     doc.setFont("helvetica", "normal"); doc.setFontSize(15); doc.setTextColor(80, 80, 80);
     doc.text("Resultado da Pesquisa", pageW / 2, 102, { align: "center" });
     doc.setFont("helvetica", "bold"); doc.setFontSize(22); doc.setTextColor(11, 99, 206);
-    doc.text("Autopercepção de Resiliência", pageW / 2, 114, { align: "center" });
+    doc.text("Resiliência — Relatório Individual", pageW / 2, 114, { align: "center" });
 
     // Símbolo de Resiliência (substitui o relógio da Gestão no Tempo)
     drawResilienceSymbol(doc, pageW / 2, 175, 1.4);
@@ -1401,6 +1416,7 @@
     return doc;
   }
 </script>
+<script src="https://impulso-portal-staging.impulsoflow-f91.workers.dev/impulso-login-unico.js" data-impulso-research="resiliencia" defer></script>
 </body>
 </html>
   
