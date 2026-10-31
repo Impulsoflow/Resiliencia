@@ -708,13 +708,14 @@
     retry.style.display="none";
     try{
       const encoded=lastReportDoc.output("datauristring").split(",")[1];
-      const values=window._resilienciaData?.totals;
-      if(values){
-       // Pontuação verificada da aplicação atual, sem criar novo cadastro.
-       void bridge.saveMiniSummary({proativo:values.B,reativo:values.A,submisso:values.C});
-      }
       const receipt=await bridge.saveReportPdf(encoded);
       if(!receipt?.pdfAvailable)throw Error("A Central ainda não confirmou o arquivo.");
+      const values=window._resilienciaData?.totals;
+      if(values){
+       // Registrar somente após confirmação do PDF; evita concorrência entre os recibos.
+       const miniSaved=await bridge.saveMiniSummary({proativo:values.B,reativo:values.A,submisso:values.C});
+       if(!miniSaved)console.warn("Resumo compacto pendente de conferência na Central.");
+      }
       status.textContent="PDF arquivado na sua conta IMPULSO. Disponível em Meus relatórios.";
     }catch(error){
       console.warn("IMPULSO: arquivo para conferência",error instanceof Error?error.name:"erro");
